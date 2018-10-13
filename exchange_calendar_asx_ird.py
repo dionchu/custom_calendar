@@ -107,10 +107,8 @@ class ASX_IRD_ExchangeCalendar(TradingCalendar):
         Close Time: 4:30 PM, Australian Eastern Time
     Evening Session:
         Open Time: 5:14 PM, Australian Eastern Time
-        90 Day Bank Bills
         Winter Close Time: 7:00 AM, Australian Eastern Time - For period from second Sunday in March to first Sunday in November
         Summer Close Time: 7:30 AM, Australian Eastern Time - For period from first Sunday in November to second Sunday in March  
-    3 Year Treasury Bond Futures
     """
     regular_early_close = time(14, 10)
 
