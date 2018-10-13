@@ -86,11 +86,9 @@ LastTradingDayOfCalendarYear = Holiday(
 )
 
 
-class XASXExchangeCalendar(TradingCalendar):
+class ASX_IRD_ExchangeCalendar(TradingCalendar):
     """
     Calendar for the Australian Securities Exchange in Sydney.
-    Open Time: 10:00 AM, Australian Eastern Time
-    Close Time: 4:00 PM, Australian Eastern Time
     Regularly-Observed Holidays:
       - New Year's Day
       - Australia Day
@@ -103,6 +101,16 @@ class XASXExchangeCalendar(TradingCalendar):
     Early Closes:
       - Last trading day before Christmas
       - Last trading day of the calendar year
+      - Early Close Time: 2:10 PM, Australian Eastern Time
+    Day Session:
+        Open Time: 8:34 AM, Australian Eastern Time
+        Close Time: 4:30 PM, Australian Eastern Time
+    Evening Session:
+        Open Time: 5:14 PM, Australian Eastern Time
+        90 Day Bank Bills
+        Winter Close Time: 7:00 AM, Australian Eastern Time - For period from second Sunday in March to first Sunday in November
+        Summer Close Time: 7:30 AM, Australian Eastern Time - For period from first Sunday in November to second Sunday in March  
+    3 Year Treasury Bond Futures
     """
     regular_early_close = time(14, 10)
 
@@ -116,11 +124,11 @@ class XASXExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(10, 1)
+        return time(8, 34)
 
     @property
     def close_time(self):
-        return time(16)
+        return time(16,30)
 
     @property
     def regular_holidays(self):
