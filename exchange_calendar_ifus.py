@@ -37,7 +37,7 @@ class ICEExchangeCalendar(TradingCalendar):
     
     @property
     def name(self):
-        return "ICE"
+        return "IFUS"
 
     @property
     def tz(self):
