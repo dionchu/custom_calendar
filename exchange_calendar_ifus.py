@@ -30,6 +30,11 @@ class ICEExchangeCalendar(TradingCalendar):
 
     https://www.theice.com/publicdocs/futures_us/ICE_Futures_US_Regular_Trading_Hours.pdf # noqa
     """
+    
+    regular_early_close = time(13)
+    regular_open = time(20,1)
+    regular_close = time(18)
+    
     @property
     def name(self):
         return "ICE"
@@ -40,11 +45,11 @@ class ICEExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(20, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(18)
+        return self.regular_close
 
     @property
     def open_offset(self):
@@ -53,7 +58,7 @@ class ICEExchangeCalendar(TradingCalendar):
     @property
     def special_closes(self):
         return [
-            (time(13), HolidayCalendar([
+            (self.regular_early_close, HolidayCalendar([
                 USMartinLutherKingJrAfter1998,
                 USPresidentsDay,
                 USMemorialDay,
