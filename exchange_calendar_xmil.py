@@ -62,6 +62,9 @@ class XMILExchangeCalendar(TradingCalendar):
     Early Closes:
       - None
     """
+    regular_open = time(9, 1)
+    regular_close = time(17, 30)
+    
     @property
     def name(self):
         return 'XMIL'
@@ -73,11 +76,11 @@ class XMILExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(9, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(17, 30)
+        return self.regular_close
 
     @property
     def regular_holidays(self):
