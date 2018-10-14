@@ -40,7 +40,7 @@ from .us_holidays import (
 )
 
 
-class CMESExchangeCalendar(TradingCalendar):
+class XCMEExchangeCalendar(TradingCalendar):
     """
     Exchange calendar for the Chicago Mercantile Exchange (CMES).
 
