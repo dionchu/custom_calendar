@@ -105,7 +105,9 @@ class XASXExchangeCalendar(TradingCalendar):
       - Last trading day of the calendar year
     """
     regular_early_close = time(14, 10)
-
+    regular_open = time(10,25)
+    regular_close = time(16,30)
+    
     @property
     def name(self):
         return 'XASX'
@@ -116,11 +118,11 @@ class XASXExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(10, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(16)
+        return self.regular_close
 
     @property
     def regular_holidays(self):
