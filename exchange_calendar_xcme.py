@@ -58,7 +58,7 @@ class XCMEExchangeCalendar(TradingCalendar):
     
     @property
     def name(self):
-        return "CME"
+        return "XCME"
 
     @property
     def tz(self):
