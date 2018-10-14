@@ -82,9 +82,9 @@ NewYearsEveEarlyClose2012Onwards = new_years_eve(
 )
 
 
-class XMADExchangeCalendar(TradingCalendar):
+class XMRVExchangeCalendar(TradingCalendar):
     """
-    Calendar for the Madrid Stock Exchange (Bolsa de Madrid).
+    Calendar for the Spanish Futures and Options Exchange.
 
     Open Time: 9:00 AM, CET (Central European Time)
     Close Time: 5:30 PM, CET (Central European Time)
@@ -112,10 +112,12 @@ class XMADExchangeCalendar(TradingCalendar):
       - New Year's Eve (2012 and after)
     """
     regular_early_close = time(14, 00)
-
+    regular_open = time(9,1)
+    regular_close = time(17, 30)
+    
     @property
     def name(self):
-        return 'XMAD'
+        return 'XMRV'
 
     @property
     def tz(self):
@@ -123,11 +125,11 @@ class XMADExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(9, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(17, 30)
+        return self.regular_close
 
     @property
     def regular_holidays(self):
