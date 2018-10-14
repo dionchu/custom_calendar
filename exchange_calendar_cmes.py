@@ -52,6 +52,10 @@ class CMESExchangeCalendar(TradingCalendar):
     - Good Friday
     - Christmas
     """
+    regular_early_close = time(12)
+    regular_open = time(17, 1)
+    regular_close = time(17)
+    
     @property
     def name(self):
         return "CME"
@@ -62,11 +66,11 @@ class CMESExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(17, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(17)
+        return self.regular_close
 
     @property
     def open_offset(self):
@@ -97,7 +101,7 @@ class CMESExchangeCalendar(TradingCalendar):
     @property
     def special_closes(self):
         return [(
-            time(12),
+            self.regular_early_close,
             HolidayCalendar([
                 USMartinLutherKingJrAfter1998,
                 USPresidentsDay,
