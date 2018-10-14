@@ -42,31 +42,33 @@ from .us_holidays import (
 
 class XNYMExchangeCalendar(TradingCalendar):
     """
-    Exchange calendar for the Chicago Mercantile Exchange (CMES).
-
-    Open Time: 5:00 PM, America/Chicago
-    Close Time: 5:00 PM, America/Chicago
-
+    Exchange calendar for the New York Mercantile Exchange (NYMEX).
+    Open Time: 5:00 PM, America/New_York
+    Close Time: 5:00 PM, America/New_York
     Regularly-Observed Holidays:
     - New Years Day
     - Good Friday
     - Christmas
     """
+    regular_early_close = time(12)
+    regular_open = time(17, 1)
+    regular_close = time(17)
+    
     @property
     def name(self):
-        return "CME"
+        return "NYM"
 
     @property
     def tz(self):
-        return timezone('America/Chicago')
+        return timezone('America/New_York')
 
     @property
     def open_time(self):
-        return time(17, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(17)
+        return self.regular_close
 
     @property
     def open_offset(self):
@@ -81,7 +83,7 @@ class XNYMExchangeCalendar(TradingCalendar):
         # Products and Livestock, Dairy & Lumber products are completely
         # closed.
 
-        # For now, we will treat the CME as having a single calendar, and just
+        # For now, we will treat the NYMEX as having a single calendar, and just
         # go with the most conservative hours - and treat July 4 as an early
         # close at noon.
         return HolidayCalendar([
@@ -97,7 +99,7 @@ class XNYMExchangeCalendar(TradingCalendar):
     @property
     def special_closes(self):
         return [(
-            time(12),
+            self.regular_early_close,
             HolidayCalendar([
                 USMartinLutherKingJrAfter1998,
                 USPresidentsDay,
