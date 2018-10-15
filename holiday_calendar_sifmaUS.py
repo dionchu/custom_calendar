@@ -77,6 +77,7 @@ USMartinLutherKingJr = Holiday(
     offset=DateOffset(weekday=MO(3)),
 )
 
+# SIFMA stopped observing early close for MLK after 2009
 BusinessDayPriorToUSMartinLutherKingJrBefore2010 = Holiday(
     'Dr. Martin Luther King Jr. Day',
     month=1,
@@ -87,6 +88,7 @@ BusinessDayPriorToUSMartinLutherKingJrBefore2010 = Holiday(
     offset=[DateOffset(weekday=MO(3)),pd.DateOffset(-3)],
 )
 
+# SIFMA stopped observing early close for President's Day after 2009
 BusinessDayPriorToUSPresidentsDayBefore2010 = Holiday(
     'Business Day prior to President's Day',
     month=2,
@@ -106,6 +108,7 @@ BusinessDayPriorToMemorialDay = Holiday(
 # If July 4th is a Saturday Thursday 2nd is an early close
 # If July 4th is a Sunday Friday 2nd is an early close
 
+# SIFMA occasionally trades a full day before July 4th
 def july_4th_early_close_observance(datetime_index):
     return datetime_index[~datetime_index.year.isin([2009,2010,2011,2012,2013])]
 
@@ -124,6 +127,7 @@ EarlyCloseWeekendIndependenceDayExcept2009to2013 = Holiday(
     observance = july_4th_early_close_observance
 )
 
+# SIFMA stopped observing early close for Labor Day after 2009
 FridayBeforeLaborDayBefore2009 = Holiday(
     'Early Close Friday Before Labor Day'
     month=9,
@@ -132,6 +136,7 @@ FridayBeforeLaborDayBefore2009 = Holiday(
     end_date=Timestamp('2009-01-01'),
 )
 
+# SIFMA stopped observing early close for Columbus Day after 2009
 FridayBeforeColumbusDayBefore2009 = Holiday(
     'Early Close Friday Before Columbus Day'
     month=10,
@@ -147,6 +152,7 @@ WednesdayBeforeThanksgiving = Holiday(
     offset=[pd.DateOffset(weekday=TH(4)),pd.DateOffset(-1)],
 )
 
+# SIFMA stopped observing early close for Black Friday after 2009
 BlackFridayBefore2009 = Holiday(
     'Early Close Wednesday Before Thanksgiving Day'
     month=11,
@@ -159,7 +165,6 @@ ChristmasEve = Holiday(
     'Christmas Eve',
     month=12,
     day=24,
-    end_date=Timestamp('1993-01-01'),
     observance=previous_friday,
 )
 
