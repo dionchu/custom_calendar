@@ -99,7 +99,9 @@ RoyalWedding = Timestamp("2011-04-29", tz="UTC")
 SpringBank2012 = Timestamp("2012-06-04", tz="UTC")
 DiamondJubilee = Timestamp("2012-06-05", tz="UTC")
 
-UKBANK_AbstractHolidayCalendar = HolidayCalendar([
+class UKBANK_AbstractHolidayCalendar:
+    
+    regular = HolidayCalendar([
             UKNewYearsDay,
             GoodFriday,
             EasterMonday,
@@ -114,10 +116,12 @@ UKBANK_AbstractHolidayCalendar = HolidayCalendar([
             WeekendBoxingDay
         ])
  
- UKBANK_AdhocAbstractHolidayCalendar = [
+    adhoc = [
             SpringBank2002,
             GoldenJubilee,
             RoyalWedding,
             SpringBank2012,
             DiamondJubilee,
         ]
+
+    early = HolidayCalendar([])
