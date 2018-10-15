@@ -74,6 +74,6 @@ class EUBANK_AbstractHolidayCalendar:
             BoxingDay,
         ])
  
-    adhoc = [Timestamp('1999-12-31', tz='UTC')]
+    regular_adhoc = [Timestamp('1999-12-31', tz='UTC')]
 
     early = HolidayCalendar([])
