@@ -21,7 +21,7 @@ from trading_calendars.us_holidays import (
     USNationalDaysofMourning)
 
 
-class ICEExchangeCalendar(TradingCalendar):
+class IFUSExchangeCalendar(TradingCalendar):
     """
     Exchange calendar for ICE US.
 
