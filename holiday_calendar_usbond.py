@@ -1,3 +1,8 @@
+# US Bond Markets follow SIFMA US trading calendar
+# https://www.sifma.org/resources/general/holiday-schedule/#US
+
+#-------------------------------------------------------
+# To Do:
 # Check MLK Day first observed in Federal Payment System
 
 from datetime import time
@@ -331,7 +336,7 @@ SIFMAGoodFridayEarlyClose = [
 # SIFMA US Bond Market Holiday Calendar
 # -------------------------------------
 
-class SIFMA_US_AbstractHolidayCalendar:
+class USBOND_AbstractHolidayCalendar:
 
         regular = HolidayCalendar([
           USNewYearsDay,
