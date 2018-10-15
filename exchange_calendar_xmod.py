@@ -1,14 +1,12 @@
 from datetime import time
 from itertools import chain
 import pandas as pd
-from pandas.tseries.holiday import (
-    Holiday,
-    DateOffset,
-    MO,
-    weekend_to_monday,
-    GoodFriday
-)
 from pytz import timezone
+
+from .holiday_calendar_xmod import (
+    XMOD_IRD_AbstractHolidayCalendar,
+    XMOD_EQD_AbstractHolidayCalendar,
+)
 
 from .trading_calendar import (
     TradingCalendar,
@@ -20,86 +18,11 @@ from .trading_calendar import (
     FRIDAY,
 )
 
-from .common_holidays import (
-    new_years_day,
-    christmas,
-    weekend_christmas,
-    boxing_day,
-    weekend_boxing_day,
-)
-
-
-# New Year's Day
-XTSENewYearsDay = new_years_day(observance=weekend_to_monday)
-
-# Ontario Family Day
-FamilyDay = Holiday(
-    "Family Day",
-    month=2,
-    day=1,
-    offset=DateOffset(weekday=MO(3)),
-    start_date='2008-01-01',
-)
-# Victoria Day
-VictoriaDay = Holiday(
-    'Victoria Day',
-    month=5,
-    day=24,
-    offset=DateOffset(weekday=MO(-1)),
-)
-# Canada Day
-CanadaDay = Holiday(
-    'Canada Day',
-    month=7,
-    day=1,
-    observance=weekend_to_monday,
-)
-# Civic Holiday
-CivicHoliday = Holiday(
-    'Civic Holiday',
-    month=8,
-    day=1,
-    offset=DateOffset(weekday=MO(1)),
-)
-# Labor Day
-LaborDay = Holiday(
-    'Labor Day',
-    month=9,
-    day=1,
-    offset=DateOffset(weekday=MO(1)),
-)
-# Canadian Thanksgiving
-CanadianThanksgiving = Holiday(
-    'Canadian Thanksgiving',
-    month=10,
-    day=1,
-    offset=DateOffset(weekday=MO(2)),
-)
-
-ChristmasEveEarlyClose2010Onwards = Holiday(
-    'Christmas Eve Early Close',
-    month=12,
-    day=24,
-    days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY),
-    start_date=pd.Timestamp("2010-01-01"),
-)
-
-Christmas = christmas()
-
-WeekendChristmas = weekend_christmas()
-
-BoxingDay = boxing_day()
-
-WeekendBoxingDay = weekend_boxing_day()
-
-September11ClosingsCanada = pd.date_range('2001-09-11', '2001-09-12', tz='UTC')
-
-
-class XTSEExchangeCalendar(TradingCalendar):
+class XMODExchangeCalendar(TradingCalendar):
     """
-    Exchange calendar for the Toronto Stock Exchange (XTSE).
+    Exchange calendar for the Montreal Exchange (XMOD).
     Open Time: 9:30 AM, EST
-    Close Time: 4:00 PM, EST
+    Close Time: 4:30 PM, EST
     Regularly-Observed Holidays:
     - New Years Day (observed on first business day on/after)
     - Family Day (Third Monday in February, starting in 2008)
@@ -116,16 +39,19 @@ class XTSEExchangeCalendar(TradingCalendar):
         - Dec. 27th if Christmas is on a Sunday
         - Dec. 28th if Boxing Day is on a weekend
     Early closes:
-    - Starting in 2010, if Christmas Eve falls on a weekday, the market
-      closes at 1:00 pm that day. If it falls on a weekend, there is no
-      early close.
+    - IRD observe early close at 13:30 before every holiday
+    - EQD does not observe early close
     """
-
-    regular_early_close = time(13)
-
+    product_group = 'EQD' # EQD or IRD
+    eqd_regular_open = time(9, 31)
+    eqd_regular_close = time(16, 30)
+    ird_regular_early_close = time(13, 30)
+    ird_regular_open = time(2, 1)
+    ird_regular_close = time(16, 30)
+        
     @property
     def name(self):
-        return "XTSE"
+        return "XMOD"
 
     @property
     def tz(self):
@@ -133,40 +59,27 @@ class XTSEExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(9, 31)
+        if self.product_group == 'EQD':
+            return self.eqd_regular_open
+        elif self.product_group == 'IRD':
+            return self.ird_regular_open
 
     @property
     def close_time(self):
-        return time(16)
+        if self.product_group == 'EQD':
+            return self.eqd_regular_close
+        elif self.product_group == 'IRD':
+            return self.ird_regular_close
 
     @property
     def regular_holidays(self):
-        return HolidayCalendar([
-            XTSENewYearsDay,
-            FamilyDay,
-            GoodFriday,
-            VictoriaDay,
-            CanadaDay,
-            CivicHoliday,
-            LaborDay,
-            CanadianThanksgiving,
-            Christmas,
-            WeekendChristmas,
-            BoxingDay,
-            WeekendBoxingDay
-        ])
+        return XMOD_EQD_AbstractHolidayCalendar.regular if self.product_group == 'EQD' else XMOD_IRD_AbstractHolidayCalendar.regular
 
     @property
     def adhoc_holidays(self):
         # NOTE: change the name of this property
-        return list(chain(
-            September11ClosingsCanada
-        ))
+        return XMOD_EQD_AbstractHolidayCalendar.adhoc if self.product_group == 'EQD' else XMOD_IRD_AbstractHolidayCalendar.adhoc
 
     @property
     def special_closes(self):
-        return [
-            (self.regular_early_close, HolidayCalendar([
-                ChristmasEveEarlyClose2010Onwards
-            ]))
-        ]
+        return [(self.ird_regular_early_close, XMOD_IRD_AbstractHolidayCalendar.early)] if self.product_group == 'IRD' else []
