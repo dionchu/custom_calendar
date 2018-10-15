@@ -40,7 +40,7 @@ from .xjpx_holidays import (
 XTKS_START_DEFAULT = pd.Timestamp('2000-01-01', tz='UTC')
 
 
-class XTKSExchangeCalendar(TradingCalendar):
+class XJPXExchangeCalendar(TradingCalendar):
     """
     Exchange calendar for the Tokyo Stock Exchange
 
