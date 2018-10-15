@@ -26,20 +26,20 @@ class IFUSExchangeCalendar(TradingCalendar):
     Exchange calendar for ICE US.
     Open Time: 8pm, US/Eastern
     Close Time: 6pm, US/Eastern
-    https://www.theice.com/publicdocs/futures_us/ICE_Futures_US_Regular_Trading_Hours.pdf # noqa
+    https://www.theice.com/publicdocs/futures/Trading_Schedule_Migrated_Liffe_Contracts.pdf # noqa
     """
     
     regular_early_close = time(13)
-    regular_open = time(20,1)
+    regular_open = time(8,1)
     regular_close = time(18)
     
     @property
     def name(self):
-        return "IFUS"
+        return "IFEU"
 
     @property
     def tz(self):
-        return timezone("US/Eastern")
+        return timezone("UK/London")
 
     @property
     def open_time(self):
