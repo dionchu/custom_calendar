@@ -222,7 +222,7 @@ class XMOD_IRD_AbstractHolidayCalendar:
             WeekendBoxingDay
         ])
         
-        adhoc = list(chain(
+        regular_adhoc = list(chain(
             September11ClosingsCanada
         ))
         
