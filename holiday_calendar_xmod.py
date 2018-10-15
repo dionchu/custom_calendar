@@ -7,7 +7,7 @@ from pandas.tseries.holiday import (
     MO,
     FR,
     weekend_to_monday,
-    weekend_to_friday,
+    previous_friday,
     previous_workday,
     GoodFriday
 )
