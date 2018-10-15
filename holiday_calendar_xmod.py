@@ -1,3 +1,5 @@
+### things to fix: 2003 had early close on Chrismas Eve for Equities
+
 from datetime import time
 from itertools import chain
 import pandas as pd
