@@ -43,6 +43,7 @@ class XMODExchangeCalendar(TradingCalendar):
     - EQD does not observe early close
     """
     product_group = 'EQD' # EQD or IRD
+    eqd_regular_early_close = time(13)
     eqd_regular_open = time(9, 31)
     eqd_regular_close = time(16, 30)
     ird_regular_early_close = time(13, 30)
@@ -82,4 +83,4 @@ class XMODExchangeCalendar(TradingCalendar):
 
     @property
     def special_closes(self):
-        return [(self.ird_regular_early_close, XMOD_IRD_AbstractHolidayCalendar.early)] if self.product_group == 'IRD' else []
+        return [(self.ird_regular_early_close, XMOD_IRD_AbstractHolidayCalendar.early)] if self.product_group == 'IRD' else [(self.eqd_regular_early_close, XMOD_EQD_AbstractHolidayCalendar.early)]
