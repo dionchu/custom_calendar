@@ -82,9 +82,11 @@ NewYearsEveEarlyClose2012Onwards = new_years_eve(
 )
 
 
-class XMRVExchangeCalendar(TradingCalendar):
+class BMEXExchangeCalendar(TradingCalendar):
     """
-    Calendar for the Spanish Futures and Options Exchange.
+    Calendar for the Bolsas Y Mercados Espanoles
+        Spanish Futures and Options Exchange
+        Bolsas de Madrid
 
     Open Time: 9:00 AM, CET (Central European Time)
     Close Time: 5:30 PM, CET (Central European Time)
@@ -117,7 +119,7 @@ class XMRVExchangeCalendar(TradingCalendar):
     
     @property
     def name(self):
-        return 'XMRV'
+        return 'BMEX'
 
     @property
     def tz(self):
