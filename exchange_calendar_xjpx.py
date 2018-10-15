@@ -75,6 +75,9 @@ class XJPXExchangeCalendar(TradingCalendar):
         # make the default start date 01-01-2000
         super(XJPXExchangeCalendar, self).__init__(start=start, end=end)
 
+    regular_open = time(9,1)
+    regular_close = time(15, 00)
+       
     @property
     def name(self):
         return "XJPX"
@@ -85,11 +88,11 @@ class XJPXExchangeCalendar(TradingCalendar):
 
     @property
     def open_time(self):
-        return time(9, 1)
+        return self.regular_open
 
     @property
     def close_time(self):
-        return time(15)
+        return self.regular_close
 
     @property
     def regular_holidays(self):
