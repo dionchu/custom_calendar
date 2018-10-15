@@ -159,12 +159,18 @@ WeekendChristmas = weekend_christmas()
 BoxingDay = boxing_day()
 WeekendBoxingDay = weekend_boxing_day()
 
-ChristmasEveEarlyClose2010Onwards = Holiday(
+def christmas_eve_early_close_observance(datetime_index):
+    return datetime_index[datetime_index.year != 2004]
+
+ChristmasEveEarlyClose2003OnwardsExcept2004 = Holiday(
+    # When Christmas Eve is on a weekday, early close (except in 2004
+    # for no explicable reason this was not the case),
     'Christmas Eve Early Close',
     month=12,
     day=24,
     days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY),
-    start_date=pd.Timestamp("2010-01-01"),
+    observance=christmas_eve_early_close_observance,
+    start_date=pd.Timestamp("2003-01-01"),
 )
 
 September11ClosingsCanada = pd.date_range('2001-09-11', '2001-09-12', tz='UTC')
@@ -193,7 +199,7 @@ class XMOD_EQD_AbstractHolidayCalendar:
             September11ClosingsCanada
         ))
         
-        early = HolidayCalendar([ChristmasEveEarlyClose2007Onwards])
+        early = HolidayCalendar([ChristmasEveEarlyClose2003OnwardsExcept2004])
 
 # XMOD Interest Rate Derivatives Holiday Calendar
 # -----------------------------------------------
