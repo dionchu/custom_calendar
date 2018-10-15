@@ -30,7 +30,7 @@ from .common_holidays import (
 
 
 # New Year's Day
-XTSENewYearsDay = new_years_day(observance=weekend_to_monday)
+CANewYearsDay = new_years_day(observance=weekend_to_monday)
 
 # Ontario Family Day
 FamilyDay = Holiday(
@@ -94,9 +94,13 @@ WeekendBoxingDay = weekend_boxing_day()
 
 September11ClosingsCanada = pd.date_range('2001-09-11', '2001-09-12', tz='UTC')
 
-XMOD_AbstractHolidayCalendar = regular_holidays(self):
-        return HolidayCalendar([
-            XTSENewYearsDay,
+# XMOD Equity Derivatives Holiday Calendar
+# ----------------------------------------
+
+class XMOD_EQD_AbstractHolidayCalendar:
+
+        regular = HolidayCalendar([
+            CANewYearsDay,
             FamilyDay,
             GoodFriday,
             VictoriaDay,
@@ -110,14 +114,12 @@ XMOD_AbstractHolidayCalendar = regular_holidays(self):
             WeekendBoxingDay
         ])
         
-adhoc_holidays(self):
-        # NOTE: change the name of this property
-        return list(chain(
+        adhoc = list(chain(
             September11ClosingsCanada
         ))
         
-         [
-            (self.regular_early_close, HolidayCalendar([
-                ChristmasEveEarlyClose2010Onwards
-            ]))
-        ]
+        early = HolidayCalendar([])
+
+# XMOD Holiday Calendar
+# ---------------------
+
