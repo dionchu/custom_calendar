@@ -8,7 +8,7 @@ from .trading_calendar import (
     HolidayCalendar,
     end_default,
 )
-from .xtks_holidays import (
+from .xjpx_holidays import (
     NewYearsHolidayDec31,
     NewYearsHolidayJan1,
     NewYearsHolidayJan2,
