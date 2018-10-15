@@ -35,8 +35,8 @@ from .holiday_calendar_eubank import (
 class IFEUExchangeCalendar(TradingCalendar):
     """
     Exchange calendar for ICE EU.
-    Open Time: 8pm, US/Eastern
-    Close Time: 6pm, US/Eastern
+    Open Time: 8pm, UK/London
+    Close Time: 6pm, UK/London
     https://www.theice.com/publicdocs/futures/Trading_Schedule_Migrated_Liffe_Contracts.pdf # noqa
     """
     product_group = 'UK' # UK, US, EU
@@ -65,32 +65,38 @@ class IFEUExchangeCalendar(TradingCalendar):
         return -1
 
     @property
-    def special_closes(self):
-        return [
-            (self.regular_early_close, HolidayCalendar([
-                USMartinLutherKingJrAfter1998,
-                USPresidentsDay,
-                USMemorialDay,
-                USIndependenceDay,
-                USLaborDay,
-                USThanksgivingDay
-            ]))
-        ]
-
-    @property
     def adhoc_holidays(self):
-        return list(chain(
-            USNationalDaysofMourning,
-            # ICE was only closed on the first day of the Hurricane Sandy
-            # closings (was not closed on 2012-10-30)
-            [Timestamp('2012-10-29', tz='UTC')]
-        ))
-
+        if self.product_group == 'UK':
+            return list(chain(
+                USNationalDaysofMourning,
+                # ICE was only closed on the first day of the Hurricane Sandy
+                # closings (was not closed on 2012-10-30)
+                [Timestamp('2012-10-29', tz='UTC')],
+                UKBANK_AbstractHolidayCalendar.regular_adhoc,
+            ))
+        elif self.product_group == 'US':
+            return list(chain(
+                USNationalDaysofMourning,
+                # ICE was only closed on the first day of the Hurricane Sandy
+                # closings (was not closed on 2012-10-30)
+                [Timestamp('2012-10-29', tz='UTC')],
+                USBOND_AbstractHolidayCalendar.regular_adhoc,
+            ))
+        elif self.product_group == 'EU':
+            return list(chain(
+                USNationalDaysofMourning,
+                # ICE was only closed on the first day of the Hurricane Sandy
+                # closings (was not closed on 2012-10-30)
+                [Timestamp('2012-10-29', tz='UTC')],
+                EUBANK_AbstractHolidayCalendar.regular_adhoc,
+            ))
+        
     @property
     def regular_holidays(self):
         # https://www.theice.com/publicdocs/futures_us/exchange_notices/NewExNot2016Holidays.pdf # noqa
-        return HolidayCalendar([
-            USNewYearsDay,
-            GoodFriday,
-            Christmas
-        ])
+        if self.product_group == 'UK':
+            return UKBANK_AbstractHolidayCalendar.regular
+        elif self.product_group == 'US':
+            return USBOND_AbstractHolidayCalendar.regular
+        elif self.product_group == 'EU':
+            return EUBANK_AbstractHolidayCalendar.regular
