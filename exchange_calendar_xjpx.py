@@ -42,7 +42,9 @@ XJPX_START_DEFAULT = pd.Timestamp('2000-01-01', tz='UTC')
 
 class XJPXExchangeCalendar(TradingCalendar):
     """
-    Exchange calendar for the Tokyo Stock Exchange
+    Exchange calendar for the JPX Group
+        Tokyo Stock Exchange
+        Osaka Securities Exchange
 
     First session: 9:00am - 11:30am
     Lunch
