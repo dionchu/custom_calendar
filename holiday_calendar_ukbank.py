@@ -116,7 +116,7 @@ class UKBANK_AbstractHolidayCalendar:
             WeekendBoxingDay
         ])
  
-    adhoc = [
+    regular_adhoc = [
             SpringBank2002,
             GoldenJubilee,
             RoyalWedding,
