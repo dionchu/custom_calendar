@@ -20,15 +20,26 @@ from trading_calendars.us_holidays import (
     USIndependenceDay,
     USNationalDaysofMourning)
 
+from .holiday_calendar_usbond import (
+    USBOND_AbstractHolidayCalendar,
+)
 
-class IFUSExchangeCalendar(TradingCalendar):
+from .holiday_calendar_ukbank import (
+    UKBANK_AbstractHolidayCalendar,
+)
+
+from .holiday_calendar_eubank import (
+    EUBANK_AbstractHolidayCalendar,
+)
+
+class IFEUExchangeCalendar(TradingCalendar):
     """
-    Exchange calendar for ICE US.
+    Exchange calendar for ICE EU.
     Open Time: 8pm, US/Eastern
     Close Time: 6pm, US/Eastern
     https://www.theice.com/publicdocs/futures/Trading_Schedule_Migrated_Liffe_Contracts.pdf # noqa
     """
-    
+    product_group = 'UK' # UK, US, EU
     regular_early_close = time(13)
     regular_open = time(8,1)
     regular_close = time(18)
