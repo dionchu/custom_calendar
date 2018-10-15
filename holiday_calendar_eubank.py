@@ -48,17 +48,6 @@ Christmas = christmas()
 
 BoxingDay = boxing_day()
 
-# Early Closes
-# ------------
-# The last weekday before Dec 31 is an early close starting in 2010.
-LastWorkingDay = Holiday(
-    "Last Working Day of Year Early Close",
-    month=12,
-    day=31,
-    start_date='2010-01-01',
-    observance=previous_workday,
-)
-
 class EUBANK_AbstractHolidayCalendar:
     """
     Holiday calendar for the Eurosystem TARGET
