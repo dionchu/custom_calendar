@@ -136,12 +136,12 @@ BusinessDayPriorToCanadianRemembrance = Holiday(
     observance=previous_workday,
 )
 
-ChristmasEveEarlyClose2010Onwards = Holiday(
+ChristmasEveEarlyClose2007Onwards = Holiday(
     'Christmas Eve Early Close',
     month=12,
     day=24,
     days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY),
-    start_date=pd.Timestamp("2010-01-01"),
+    start_date=pd.Timestamp("2007-01-01"),
 )
 
 Christmas = christmas()
@@ -191,7 +191,7 @@ class XMOD_EQD_AbstractHolidayCalendar:
             September11ClosingsCanada
         ))
         
-        early = HolidayCalendar([ChristmasEveEarlyClose2010Onwards])
+        early = HolidayCalendar([ChristmasEveEarlyClose2007Onwards])
 
 # XMOD Interest Rate Derivatives Holiday Calendar
 # -----------------------------------------------
