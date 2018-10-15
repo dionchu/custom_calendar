@@ -37,7 +37,7 @@ from .xjpx_holidays import (
 )
 
 
-XTKS_START_DEFAULT = pd.Timestamp('2000-01-01', tz='UTC')
+XJPX_START_DEFAULT = pd.Timestamp('2000-01-01', tz='UTC')
 
 
 class XJPXExchangeCalendar(TradingCalendar):
@@ -70,14 +70,14 @@ class XJPXExchangeCalendar(TradingCalendar):
     - Labor Thanksgiving Day (Nov. 23)
     - Emperor's Birthday (Dec. 23)
     """
-    def __init__(self, start=XTKS_START_DEFAULT, end=end_default):
+    def __init__(self, start=XJPX_START_DEFAULT, end=end_default):
         # because we are not tracking holiday info farther back than 2000,
         # make the default start date 01-01-2000
-        super(XTKSExchangeCalendar, self).__init__(start=start, end=end)
+        super(XJPXExchangeCalendar, self).__init__(start=start, end=end)
 
     @property
     def name(self):
-        return "XTKS"
+        return "XJPX"
 
     @property
     def tz(self):
