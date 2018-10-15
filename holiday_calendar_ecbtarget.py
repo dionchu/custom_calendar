@@ -59,29 +59,32 @@ LastWorkingDay = Holiday(
     observance=previous_workday,
 )
 
-class UKBANK_AbstractHolidayCalendar:
+class EUBANK_AbstractHolidayCalendar:
+    """
+    Holiday calendar for the Eurosystem TARGET
+    payment and settlement system.
+
+    Regularly-Observed Holidays:
+    - New Years Day
+    - Good Friday
+    - Easter Monday
+    - Labour Day
+    - Christmas Day
+    - Boxing Day
+
+    Ad-Hoc Closes:
+    -  Dec. 31, 1999 to smooth transition to Y2K
+    """
     
     regular = HolidayCalendar([
-            UKNewYearsDay,
+            NewYearsDay,
             GoodFriday,
             EasterMonday,
-            MayBank,
-            SpringBankBefore2002,
-            SpringBank2002To2012,
-            SpringBank2013Onwards,
-            SummerBank,
+            EuropeanLabourDay,
             Christmas,
-            WeekendChristmas,
             BoxingDay,
-            WeekendBoxingDay
         ])
  
-    adhoc = [
-            SpringBank2002,
-            GoldenJubilee,
-            RoyalWedding,
-            SpringBank2012,
-            DiamondJubilee,
-        ]
+    adhoc = [Timestamp('1999-12-31', tz='UTC')]
 
     early = HolidayCalendar([])
