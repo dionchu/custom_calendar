@@ -159,8 +159,8 @@ WeekendChristmas = weekend_christmas()
 BoxingDay = boxing_day()
 WeekendBoxingDay = weekend_boxing_day()
 
-def christmas_eve_early_close_observance(datetime_index):
-    return datetime_index[datetime_index.year != 2004]
+def except2004(datetime_index):
+    return datetime_index[~datetime_index.year.isin([2004])]
 
 ChristmasEveEarlyClose2003OnwardsExcept2004 = Holiday(
     # When Christmas Eve is on a weekday, early close (except in 2004
@@ -169,7 +169,7 @@ ChristmasEveEarlyClose2003OnwardsExcept2004 = Holiday(
     month=12,
     day=24,
     days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY),
-    observance=christmas_eve_early_close_observance,
+    observance=except2004,
     start_date=pd.Timestamp("2003-01-01"),
 )
 
