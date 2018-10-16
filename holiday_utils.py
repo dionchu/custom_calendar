@@ -1,3 +1,5 @@
+import warnings
+
 from pandas import DateOffset, DatetimeIndex, Series, Timestamp
 from pandas.errors import PerformanceWarning
 from pandas.compat import add_metaclass
