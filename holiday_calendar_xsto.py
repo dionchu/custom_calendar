@@ -93,7 +93,7 @@ AllSaintsEve = all_saints_day(observance=friday_week_of)
 # Nasdaq OMX Holiday Calendar
 # -------------------------------------
 
-class XOMX_AbstractHolidayCalendar:
+class XSTO_AbstractHolidayCalendar:
     
         regular = HolidayCalendar([
           NewYearsDay,
