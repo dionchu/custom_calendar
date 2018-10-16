@@ -95,6 +95,9 @@ class XSTO_AbstractHolidayCalendar:
           NewYearsDay,
           GoodFriday,
           EasterMonday,
+          EuropeanLabourDay,
+          AscensionDay,
+          SENationalDay,
           ChristmasEve,
           Christmas,
           BoxingDay,
@@ -109,6 +112,5 @@ class XSTO_AbstractHolidayCalendar:
           TwelfthNight,
           MaundyThursday,
           WalpurgisNight,
-          BusinessDayPriorToMemorialDay,
           AllSaintsEve,
         ])
