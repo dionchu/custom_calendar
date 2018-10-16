@@ -65,7 +65,7 @@ WhitMondayExcept2009 = HolidayWithFilter(
         month=1,
         day=1,
         offset=[Easter(), Day(50)],
-        exception_years = [2009],
+        year_filter = [2009],
     )
 
 ChristmasEve = christmas_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
