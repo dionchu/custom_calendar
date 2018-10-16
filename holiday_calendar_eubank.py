@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#https://www.ecb.europa.eu/home/contacts/working-hours/html/index.en.html
+    
 from datetime import time
 from pandas import Timestamp
 from pandas.tseries.holiday import (
