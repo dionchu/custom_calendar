@@ -21,6 +21,7 @@ from pandas.tseries.holiday import (
     FR,
     SA,
     SU,
+    Easter,
 )
 from pytz import timezone
 
