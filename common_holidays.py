@@ -14,6 +14,12 @@ import datetime
 import ephem
 import pandas as pd
 
+def friday_week_of(dt):
+    """
+    returns friday of current week
+    """
+    return dt + timedelta(days=4) + timedelta(days=-dt.weekday())
+  
 def summer_solstice_friday(start_date=None,
                            end_date=None):
   if start_date == None:
@@ -78,7 +84,26 @@ def epiphany(start_date=None,
         days_of_week=days_of_week,
     )
 
-
+def wed_before_maundy_thursday(start_date=None, end_date=None):
+    return Holiday(
+        "Maundy Thursday",
+        month=1,
+        day=1,
+        offset=[Easter(), Day(-4)],
+        start_date=start_date,
+        end_date=end_date,
+    )
+  
+def maundy_thursday(start_date=None, end_date=None):
+    return Holiday(
+        "Maundy Thursday",
+        month=1,
+        day=1,
+        offset=[Easter(), Day(-3)],
+        start_date=start_date,
+        end_date=end_date,
+    )
+  
 def european_labour_day(start_date=None,
                         end_date=None,
                         observance=None,
