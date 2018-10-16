@@ -5,7 +5,6 @@
 
 #-------------------------------------------------------
 # To Do:
-# All Saints Day early close was not observed in 2010
 # Check whether Day Before Ascension Day was early close
 # Nasdaq says no, FESE says yes
 
