@@ -59,6 +59,7 @@ NOConstitutionDay = Holiday(
     days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
 )
 
+# Whit Monday was open for trading on Oslo Bors in 2009
 WhitMondayExcept2009 = HolidayWithFilter(
         "Whit Monday",
         month=1,
