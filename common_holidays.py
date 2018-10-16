@@ -9,27 +9,6 @@ from pytz import timezone
 
 from .trading_calendar import MONDAY, TUESDAY
 
-# Set up code to calculate equinox dates
-import datetime
-import ephem
-import pandas as pd
- 
-def summer_solstice_friday(start_date=None,
-                           end_date=None):
-  if start_date == None:
-    start_date = '1970-01-01'
-  
-  if end_date == None:
-    end_date = datetime.date(datetime.datetime.now().year+20,1,1).strftime('%Y-%m-%d')
-
-  drange = pd.date_range(start=start_date,end=end_date,freq='YS').strftime('%Y-%m-%d')
-  
-  next_summer_solstice = lambda x: Timestamp(ephem.next_summer_solstice(x).datetime().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%d')) 
-  range_solstices = [next_summer_solstice(x) for x in drange]
-
-  to_friday = lambda x: x + timedelta(days=4) + timedelta(days=-x.weekday())
-  return [to_friday(x) for x in range_solstices]
-
 # It doesn't appear that Japan follows the actual vernal equinox, must be some adjustment for weekends?
 #next_vernal_equinox =  lambda x: Timestamp(ephem.next_vernal_equinox(x).datetime().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%d')) 
 #VernalEquinoxes = [next_vernal_equinox(x) for x in drange]
