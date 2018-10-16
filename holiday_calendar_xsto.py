@@ -44,9 +44,6 @@ from .common_holidays import (
 from .extensions.holiday_extensions import (
     friday_week_of,
     HolidayWithFilter,
-)
-
-from .extensions.offset_extensions import (
     next_summer_solstice,
 )
 
