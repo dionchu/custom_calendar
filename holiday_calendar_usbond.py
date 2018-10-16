@@ -136,7 +136,7 @@ SIFMAMaundyThursday = HolidayWithFilter(
     'SIFMA Maundy Thursday early close', 
     month=1, 
     day=1, 
-    offset=[Easter(), Day(-3)]),
+    offset=[Easter(), Day(-3)])],
     year_filter = [2007,2010,2012,2015],
 )
 
@@ -146,7 +146,7 @@ SIFMAGoodFridayEarlyClose = HolidayWithFilter(
     'SIFMA Good Friday', 
     month=1, 
     day=1, 
-    offset=[Easter(), Day(-2)]),
+    offset=[Easter(), Day(-2)])],
     year_mask = [1999,2007,2010,2012,2015],
 )
 
