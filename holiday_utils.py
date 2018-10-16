@@ -12,7 +12,7 @@ def friday_week_of(dt):
     """
     return dt + timedelta(days=4) + timedelta(days=-dt.weekday())
 
-class Holiday(object):
+class HolidayWithFilter(object):
     """
     Class that defines a holiday with start/end dates and rules
     for observance.
@@ -20,7 +20,7 @@ class Holiday(object):
 
     def __init__(self, name, year=None, month=None, day=None, offset=None,
                  observance=None, start_date=None, end_date=None,
-                 days_of_week=None):
+                 days_of_week=None, exception_years=None):
         """
         Parameters
         ----------
@@ -51,6 +51,7 @@ class Holiday(object):
         self.observance = observance
         assert (days_of_week is None or type(days_of_week) == tuple)
         self.days_of_week = days_of_week
+        self.exception_years = exception_years
 
     def __repr__(self):
         info = ''
@@ -63,6 +64,9 @@ class Holiday(object):
 
         if self.observance is not None:
             info += 'observance={obs}'.format(obs=self.observance)
+        
+        if self.exception_years is not None:
+            info += 'exception_years={exc}'.format(exc=self.exception_years)
 
         repr = 'Holiday: {name} ({info})'.format(name=self.name, info=info)
         return repr
@@ -105,6 +109,7 @@ class Holiday(object):
                 filter_end_date.tz), filter_end_date)
         holiday_dates = holiday_dates[(holiday_dates >= filter_start_date) &
                                       (holiday_dates <= filter_end_date)]
+            
         if return_name:
             return Series(self.name, index=holiday_dates)
         return holiday_dates
@@ -133,7 +138,10 @@ class Holiday(object):
         dates = DatetimeIndex(start=reference_start_date,
                               end=reference_end_date,
                               freq=year_offset, tz=start_date.tz)
-
+        
+        if self.exception_years is not None:
+            dates = dates[~dates.year.isin(self.exception_years)]
+            
         return dates
 
     def _apply_rule(self, dates):
