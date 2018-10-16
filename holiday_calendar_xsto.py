@@ -38,7 +38,6 @@ from .common_holidays import (
     christmas,
     boxing_day,
     new_years_eve,
-    summer_solstice_friday,
     maundy_thursday,
 )
 
