@@ -48,8 +48,7 @@ from .extensions.holiday_extensions import (
 )
 
 from .extensions.offset_extensions import (
-    SummerSolstice,
-    SummerSolsticeToFriday,
+    next_summer_solstice,
 )
 
 NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
@@ -92,11 +91,11 @@ SENationalDay = Holiday(
     days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
 )
 
-SummerSolsticeFriday = HolidayWithFilter(
+SummerSolsticeFriday = Holiday(
     'Sweden Summer Solstice Friday',
     month=1,
     day=1,
-    offset=[SummerSolsticeToFriday()],
+    offset=[next_summer_solstice(observance=friday_week_of)],
 )
 
 AllSaintsEve = all_saints_day(observance=friday_week_of)
