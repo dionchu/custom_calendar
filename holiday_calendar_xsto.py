@@ -47,6 +47,11 @@ from .extensions.holiday_extensions import (
     HolidayWithFilter,
 )
 
+from .extensions.offset_extensions import (
+    SummerSolstice,
+    SummerSolsticeToFriday,
+)
+
 NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 # OMX Stockholm was open for full day in 2010
@@ -87,7 +92,12 @@ SENationalDay = Holiday(
     days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
 )
 
-SummerSolsticeFriday = summer_solstice_friday()
+SummerSolsticeFriday = HolidayWithFilter(
+    'Sweden Summer Solstice Friday',
+    month=1,
+    day=1,
+    offset=[SummerSolsticeToFriday()],
+)
 
 AllSaintsEve = all_saints_day(observance=friday_week_of)
 
@@ -120,15 +130,14 @@ class XSTO_AbstractHolidayCalendar:
           EuropeanLabourDay,
           XSTOAscensionDay,
           SENationalDay,
+          SummerSolsticeFriday,
           ChristmasEve,
           Christmas,
           BoxingDay,
           NewYearsEve,
         ])
         
-        regular_adhoc = list(
-          SummerSolsticeFriday
-        )
+        regular_adhoc = []
 
         early = HolidayCalendar([
           TwelfthNight,
