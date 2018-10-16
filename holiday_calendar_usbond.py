@@ -63,7 +63,7 @@ from .trading_calendar import (
     HolidayCalendar
 )
 
-from .holiday_extensions import (
+from .extensions.holiday_extensions import (
     friday_week_of,
     HolidayWithFilter,
 )
