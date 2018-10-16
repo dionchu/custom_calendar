@@ -41,11 +41,11 @@ from .common_holidays import (
     friday_week_of,
 )
 
-NewYearsDay = new_years_day()
+NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-EpiphanyDay = epiphany()
+EpiphanyDay = epiphany(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-EuropeanLabourDay = european_labour_day()
+EuropeanLabourDay = european_labour_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 AscensionDay = ascension_day()
 
@@ -53,19 +53,20 @@ SENationalDay = Holiday(
     "National Day of Sweden",
     month=6,
     day=6,
+    days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
 )
 
 SummerSolsticeFriday = summer_solstice_friday()
 
 WhitMonday = whit_monday()
 
-ChristmasEve = christmas_eve()
+ChristmasEve = christmas_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-Christmas = christmas()
+Christmas = christmas(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-BoxingDay = boxing_day()
+BoxingDay = boxing_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-NewYearsEve = new_years_eve()
+NewYearsEve = new_years_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 def twelfth_night_early_close_observance(datetime_index):
     return datetime_index[~datetime_index.year.isin([2010])]
@@ -99,7 +100,6 @@ class XSTO_AbstractHolidayCalendar:
           NewYearsDay,
           GoodFriday,
           EasterMonday,
-          WhitMonday,
           ChristmasEve,
           Christmas,
           BoxingDay,
