@@ -2,6 +2,9 @@
 # https://www.sifma.org/resources/general/holiday-schedule/#US
 
 #-------------------------------------------------------
+# Latest verification 1996-2018
+
+#-------------------------------------------------------
 # To Do:
 # Check MLK Day first observed in Federal Payment System
 
