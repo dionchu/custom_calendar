@@ -1,5 +1,7 @@
 # Oslo Bors Holiday Calendar
 # https://www.oslobors.no/obnewsletter/download/1e05ee05a9c1a472da4c715435ff1314/file/file/Bortfallskalender%202017-2019.pdf
+# Check against Federation of European Securities Exchanges: http://www.fese.eu/statistics-market-research/trading-calendar
+#   provides history back to 2007
 
 #-------------------------------------------------------
 # To Do:
