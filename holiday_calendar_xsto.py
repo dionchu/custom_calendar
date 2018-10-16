@@ -111,9 +111,9 @@ class XSTO_AbstractHolidayCalendar:
         )
 
         early = HolidayCalendar([
-            TwelfthNight,
-            MaundyThursday,
-            WalpurgisNight,
-            BusinessDayPriorToMemorialDay,
-            AllSaintsEve,
+          TwelfthNight,
+          MaundyThursday,
+          WalpurgisNight,
+          BusinessDayPriorToMemorialDay,
+          AllSaintsEve,
         ])
