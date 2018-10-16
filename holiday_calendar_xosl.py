@@ -35,6 +35,11 @@ from .common_holidays import (
     new_years_eve,
 )
 
+from .holiday_extensions import (
+    friday_week_of,
+    HolidayWithFilter,
+)
+
 NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 WednesdayBeforeMaundyThursday = wed_before_maundy_thursday()
@@ -52,7 +57,13 @@ NOConstitutionDay = Holiday(
     days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
 )
 
-WhitMonday = whit_monday()
+WhitMondayExcept2009 = HolidayWithFilter(
+        "Whit Monday",
+        month=1,
+        day=1,
+        offset=[Easter(), Day(50)],
+        exception_years = [2009],
+    )
 
 ChristmasEve = christmas_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
@@ -75,7 +86,7 @@ class XOSL_AbstractHolidayCalendar:
           EuropeanLabourDay,
           AscensionDay,
           NOConstitutionDay,
-          WhitMonday,
+          WhitMondayExcept2009,
           ChristmasEve,
           Christmas,
           BoxingDay,
