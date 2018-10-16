@@ -15,6 +15,8 @@ from pandas import (
     DateOffset,
 )
 
+from pandas.tseries.offsets import Day
+
 from pandas.tseries.holiday import (
     Holiday,
     DateOffset,
@@ -34,7 +36,8 @@ from pandas.tseries.holiday import (
     USLaborDay,
     USColumbusDay,
     USThanksgivingDay,
-    GoodFriday
+    GoodFriday,
+    Easter,
 )
 
 from .us_holidays import (
