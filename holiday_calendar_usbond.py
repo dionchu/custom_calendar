@@ -74,7 +74,7 @@ from pytz import timezone
 # https://www.sifma.org/resources/general/holiday-schedule/
 
 SIFMAUSNewYearsEve= Holiday(
-    'New Years Day',
+    'SIFMA New Years Eve',
     month=12,
     day=31,
     observance=previous_friday,
