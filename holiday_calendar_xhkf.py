@@ -37,7 +37,7 @@ SpringFestival3 = Holiday(
     'Spring Festival Third Day',
     month=1,
     day=1,
-    offset=[next_spring_festival(offset=1,observance=sunday_to_tuesday)]
+    offset=[next_spring_festival(offset=1,observance=sunday_to_wednesday)]
 )
 
 QingMingFestival = HolidayWithFilter(
