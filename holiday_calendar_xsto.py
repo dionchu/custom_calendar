@@ -1,5 +1,7 @@
 # Stockholm OMX Holiday Calendar
 # http://www.nasdaqomxnordic.com/vidskiptatimi
+# Check against Federation of European Securities Exchanges: http://www.fese.eu/statistics-market-research/trading-calendar
+# Cross check against NASDAQ http://www.nasdaqtrader.com/content/technicalsupport/dataproducts/GDPcombinedholidays.xls
 
 #-------------------------------------------------------
 # To Do:
@@ -36,20 +38,22 @@ from .common_holidays import (
     new_years_eve,
     summer_solstice_friday,
     maundy_thursday,
+)
+
+from .holiday_extensions import (
     friday_week_of,
+    HolidayWithFilter,
 )
 
 NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-def twelfth_night_early_close_observance(datetime_index):
-    return datetime_index[~datetime_index.year.isin([2010])]
-
-TwelfthNight = Holiday(
+# OMX Stockholm was open for full day in 2010
+TwelfthNight = HolidayWithFilter(
     'Twelfth Night',
     month=1,
     day=5,
     days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
-    observance=twelfth_night_early_close_observance,
+    year_filter = [2010],
 )
 
 EpiphanyDay = epiphany(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
@@ -65,7 +69,14 @@ MaundyThursday = maundy_thursday()
 
 EuropeanLabourDay = european_labour_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
-AscensionDay = ascension_day()
+# Nasdaq OMX Stockholm did not observe 2008 Ascension Day
+XSTOAscensionDay = HolidayWithFilter(
+    'XSTO observed Ascension Day',
+    month=1,
+    day=1,
+    offset=[Easter(), Day(39)],
+    year_filter = [2008],
+)
 
 SENationalDay = Holiday(
     "National Day of Sweden",
@@ -77,6 +88,15 @@ SENationalDay = Holiday(
 SummerSolsticeFriday = summer_solstice_friday()
 
 AllSaintsEve = all_saints_day(observance=friday_week_of)
+
+# Nasdaq OMX Stockholm did not observe early close on 2010 All Saints Friday
+XSTOAllSaintsFriday = HolidayWithFilter(
+    'XSTO observed All Saints Friday',
+    month=11,
+    day=1,
+    observance=friday_week_of,
+    year_filter = [2010],
+)
 
 ChristmasEve = christmas_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
@@ -96,7 +116,7 @@ class XSTO_AbstractHolidayCalendar:
           GoodFriday,
           EasterMonday,
           EuropeanLabourDay,
-          AscensionDay,
+          XSTOAscensionDay,
           SENationalDay,
           ChristmasEve,
           Christmas,
@@ -112,5 +132,5 @@ class XSTO_AbstractHolidayCalendar:
           TwelfthNight,
           MaundyThursday,
           WalpurgisNight,
-          AllSaintsEve,
+          XSTOAllSaintsFriday,
         ])
