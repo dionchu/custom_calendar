@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
 import ephem
 ###
-from pandas import DateOffset, DatetimeIndex, Series, Timestamp
+from pandas import DateOffset
 from pandas.errors import PerformanceWarning
-from pandas.compat import add_metaclass
 from datetime import datetime, timedelta
-from dateutil.relativedelta import MO, TU, WE, TH, FR, SA, SU  # noqa
-from pandas.tseries.offsets import Easter, Day, apply_wraps
-from pandas._libs.tslibs import (
-    ccalendar, conversion,
-    frequencies as libfrequencies)
-
+from pandas.tseries.offsets import apply_wraps
 from pandas._libs.tslibs.offsets import (
     _is_normalized,
 )
