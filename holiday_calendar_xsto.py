@@ -4,6 +4,9 @@
 # Cross check against NASDAQ http://www.nasdaqtrader.com/content/technicalsupport/dataproducts/GDPcombinedholidays.xls
 
 #-------------------------------------------------------
+# Latest verification 2007-2018
+
+#-------------------------------------------------------
 # To Do:
 # Check whether Day Before Ascension Day was early close
 # Nasdaq says no, FESE says yes
