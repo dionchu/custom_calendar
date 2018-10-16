@@ -13,13 +13,7 @@ from .trading_calendar import MONDAY, TUESDAY
 import datetime
 import ephem
 import pandas as pd
-
-def friday_week_of(dt):
-    """
-    returns friday of current week
-    """
-    return dt + timedelta(days=4) + timedelta(days=-dt.weekday())
-  
+ 
 def summer_solstice_friday(start_date=None,
                            end_date=None):
   if start_date == None:
