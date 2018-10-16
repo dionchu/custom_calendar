@@ -116,7 +116,7 @@ BusinessDayPriorToMemorialDay = Holiday(
 # SIFMA occasionally does not recommend Good Friday full close
 # instead it will stay open for a half day, in most cases
 # the Thursday before will not be a half day
-SIFMAGoodFriday = Holiday(
+SIFMAGoodFriday = HolidayWithFilter(
     'SIFMA Good Friday', 
     month=1, 
     day=1, 
@@ -126,7 +126,7 @@ SIFMAGoodFriday = Holiday(
 
 # SIFMA generally recommends early close day before Good Friday
 # if Good Friday is closed
-SIFMAMaundyThursday = Holiday(
+SIFMAMaundyThursday = HolidayWithFilter(
     'SIFMA Maundy Thursday early close', 
     month=1, 
     day=1, 
@@ -136,7 +136,7 @@ SIFMAMaundyThursday = Holiday(
 
 # Where SIFMA does not recommend a full close on Good Friday,
 # it is an early close
-SIFMAGoodFridayEarlyClose = Holiday(
+SIFMAGoodFridayEarlyClose = HolidayWithFilter(
     'SIFMA Good Friday', 
     month=1, 
     day=1, 
@@ -158,7 +158,7 @@ EarlyCloseIndependenceDayExcept2009to2013 = HolidayWithFilter(
     year_filter = [2009,2010,2011,2012,2013],
 )
 
-EarlyCloseWeekendIndependenceDayExcept2009to2013 = Holiday(
+EarlyCloseWeekendIndependenceDayExcept2009to2013 = HolidayWithFilter(
     'Weekend July 4th Early Close',
     month=7,
     day=2,
