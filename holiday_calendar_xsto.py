@@ -29,21 +29,39 @@ from .common_holidays import (
     epiphany,    
     european_labour_day,
     ascension_day,
-    whit_monday,
     all_saints_day,    
     christmas_eve,
     christmas,
     boxing_day,
     new_years_eve,
     summer_solstice_friday,
-    wed_before_maundy_thursday,
     maundy_thursday,
     friday_week_of,
 )
 
 NewYearsDay = new_years_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
+def twelfth_night_early_close_observance(datetime_index):
+    return datetime_index[~datetime_index.year.isin([2010])]
+
+TwelfthNight = Holiday(
+    'Twelfth Night',
+    month=1,
+    day=5,
+    days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
+    observance=twelfth_night_early_close_observance,
+)
+
 EpiphanyDay = epiphany(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
+
+WalpurgisNight = Holiday(
+    'Walpurgis Night',
+    month=4,
+    day=30,
+    days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
+)
+
+MaundyThursday = maundy_thursday()
 
 EuropeanLabourDay = european_labour_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
@@ -58,7 +76,7 @@ SENationalDay = Holiday(
 
 SummerSolsticeFriday = summer_solstice_friday()
 
-WhitMonday = whit_monday()
+AllSaintsEve = all_saints_day(observance=friday_week_of)
 
 ChristmasEve = christmas_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
@@ -67,29 +85,6 @@ Christmas = christmas(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 BoxingDay = boxing_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 NewYearsEve = new_years_eve(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
-
-def twelfth_night_early_close_observance(datetime_index):
-    return datetime_index[~datetime_index.year.isin([2010])]
-
-TwelfthNight = Holiday(
-    'Twelfth Night',
-    month=1,
-    day=5,
-    days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
-    observance=twelfth_night_early_close_observance,
-)
-
-MaundyThursday = maundy_thursday()
-
-WalpurgisNight = Holiday(
-    'Walpurgis Night',
-    month=4,
-    day=30,
-    days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY),
-)
-
-AllSaintsEve = all_saints_day(observance=friday_week_of)
-
 
 # Nasdaq OMX Holiday Calendar
 # -------------------------------------
