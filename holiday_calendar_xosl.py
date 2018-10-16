@@ -41,7 +41,7 @@ from .common_holidays import (
     new_years_eve,
 )
 
-from .holiday_extensions import (
+from .extensions.holiday_extensions import (
     friday_week_of,
     HolidayWithFilter,
 )
