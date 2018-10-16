@@ -12,6 +12,22 @@ def friday_week_of(dt):
     """
     return dt + timedelta(days=4) + timedelta(days=-dt.weekday())
 
+def sunday_to_tuesday(dt):
+    """
+    If holiday falls on Sunday, use two days thereafter (Tuesday) instead.
+    """
+    if dt.weekday() == 6:
+        return dt + timedelta(2)
+    return dt
+
+def sunday_to_wednesday(dt):
+    """
+    If holiday falls on Sunday, use three days thereafter (Wednesday) instead.
+    """
+    if dt.weekday() == 6:
+        return dt + timedelta(2)
+    return dt
+
 class HolidayWithFilter(object):
     """
     Class that defines a holiday with start/end dates and rules
