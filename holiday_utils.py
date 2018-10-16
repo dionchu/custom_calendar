@@ -37,7 +37,7 @@ class HolidayWithFilter(object):
         """  
         
         if offset is not None and observance is not None:
-        raise NotImplementedError("Cannot use both offset and observance.")
+            raise NotImplementedError("Cannot use both offset and observance.")
 
         self.name = name
         self.year = year
