@@ -28,6 +28,17 @@ from pandas.tseries.holiday import (
 )
 from pytz import timezone
 
+from .trading_calendar import (
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY,
+    HolidayCalendar
+)
+
 from .common_holidays import (
     new_years_day,
     wed_before_maundy_thursday,
