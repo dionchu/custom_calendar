@@ -52,7 +52,7 @@ WednesdayBeforeMaundyThursday = wed_before_maundy_thursday()
 
 MaundyThursday = maundy_thursday()
 
-EuropeanLabourDay = european_labour_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY)
+EuropeanLabourDay = european_labour_day(days_of_week=(MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY))
 
 AscensionDay = ascension_day()
 
