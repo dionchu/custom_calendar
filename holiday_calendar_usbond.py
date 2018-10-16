@@ -45,8 +45,7 @@ from .us_holidays import (
     USMemorialDay,
     USIndependenceDay,
     September11Closings,
-    HurricaneSandyClosings,
-    
+    HurricaneSandyClosings,    
 )
 
 from .trading_calendar import (
@@ -59,6 +58,11 @@ from .trading_calendar import (
     SATURDAY,
     SUNDAY,
     HolidayCalendar
+)
+
+from .holiday_extensions import (
+    friday_week_of,
+    HolidayWithFilter,
 )
 
 from pytz import timezone
@@ -109,27 +113,57 @@ BusinessDayPriorToMemorialDay = Holiday(
     offset=[DateOffset(weekday=MO(1)),pd.DateOffset(-3)],
 )
 
+# SIFMA occasionally does not recommend Good Friday full close
+# instead it will stay open for a half day, in most cases
+# the Thursday before will not be a half day
+SIFMAGoodFriday = Holiday(
+    'SIFMA Good Friday', 
+    month=1, 
+    day=1, 
+    offset=[Easter(), Day(-2)]),
+    year_filter = [1999,2007,2010,2012,2015],
+)
+
+# SIFMA generally recommends early close day before Good Friday
+# if Good Friday is closed
+SIFMAMaundyThursday = Holiday(
+    'SIFMA Maundy Thursday early close', 
+    month=1, 
+    day=1, 
+    offset=[Easter(), Day(-3)]),
+    year_filter = [2007,2010,2012,2015],
+)
+
+# Where SIFMA does not recommend a full close on Good Friday,
+# it is an early close
+SIFMAGoodFridayEarlyClose = Holiday(
+    'SIFMA Good Friday', 
+    month=1, 
+    day=1, 
+    offset=[Easter(), Day(-2)]),
+    year_mask = [1999,2007,2010,2012,2015],
+)
+
 # If July 4th is on a weekday or Sunday, prior workday is an early close
 # If July 4th is a Saturday Thursday 2nd is an early close
 # If July 4th is a Sunday Friday 2nd is an early close
 
 # SIFMA occasionally trades a full day before July 4th
-def july_4th_early_close_observance(datetime_index):
-    return datetime_index[~datetime_index.year.isin([2009,2010,2011,2012,2013])]
-
-EarlyCloseIndependenceDayExcept2009to2013 = Holiday(
+# specifically, in 2009, 2010, 2011, 2012, and 2013
+EarlyCloseIndependenceDayExcept2009to2013 = HolidayWithFilter(
     'July 4th Early Close',
     month=7,
     day=3,
     days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY),
-    observance = july_4th_early_close_observance
+    year_filter = [2009,2010,2011,2012,2013],
 )
+
 EarlyCloseWeekendIndependenceDayExcept2009to2013 = Holiday(
     'Weekend July 4th Early Close',
     month=7,
     day=2,
     days_of_week=(THURSDAY,FRIDAY),  
-    observance = july_4th_early_close_observance
+    year_filter = [2009,2010,2011,2012,2013],
 )
 
 # SIFMA stopped observing early close for Labor Day after 2009
@@ -202,137 +236,6 @@ ReaganMourning = [
     Timestamp('2004-06-11', tz='UTC'),
 ]
 
-# SIFMA will occasionally trade half days on Good Friday,
-# because the holidays function cannot handle both offsers
-# and observance rules, we list them out here individually,
-# omitting those that markets were open for half days
-
-SIFMAGoodFriday = [
-  Timestamp('1971-04-09'),
-  Timestamp('1972-03-31'),
-  Timestamp('1973-04-20'),
-  Timestamp('1974-04-12'),
-  Timestamp('1975-03-28'),
-  Timestamp('1976-04-16'),
-  Timestamp('1977-04-08'),
-  Timestamp('1978-03-24'),
-  Timestamp('1979-04-13'),
-  Timestamp('1980-04-04'),
-  Timestamp('1981-04-17'),
-  Timestamp('1982-04-09'),
-  Timestamp('1983-04-01'),
-  Timestamp('1984-04-20'),
-  Timestamp('1985-04-05'),
-  Timestamp('1986-03-28'),
-  Timestamp('1987-04-17'),
-  Timestamp('1988-04-01'),
-  Timestamp('1989-03-24'),
-  Timestamp('1990-04-13'),
-  Timestamp('1991-03-29'),
-  Timestamp('1992-04-17'),
-  Timestamp('1993-04-09'),
-  Timestamp('1994-04-01'),
-  Timestamp('1995-04-14'),
-  Timestamp('1996-04-05'),
-  Timestamp('1997-03-28'),
-  Timestamp('1998-04-10'),
-#  Timestamp('1999-04-02'),
-  Timestamp('2000-04-21'),
-  Timestamp('2001-04-13'),
-  Timestamp('2002-03-29'),
-  Timestamp('2003-04-18'),
-  Timestamp('2004-04-09'),
-  Timestamp('2005-03-25'),
-  Timestamp('2006-04-14'),
- # Timestamp('2007-04-06'),
-  Timestamp('2008-03-21'),
-  Timestamp('2009-04-10'),
- # Timestamp('2010-04-02'),
-  Timestamp('2011-04-22'),
- # Timestamp('2012-04-06'),
-  Timestamp('2013-03-29'),
-  Timestamp('2014-04-18'),
-#  Timestamp('2015-04-03'),
-  Timestamp('2016-03-25'),
-  Timestamp('2017-04-14'),
-  Timestamp('2018-03-30'),
-  Timestamp('2019-04-19'),
-  Timestamp('2020-04-10'),
-  Timestamp('2021-04-02'),
-  Timestamp('2022-04-15'),
-  Timestamp('2023-04-07'),
-  Timestamp('2024-03-29'),
-  Timestamp('2025-04-18'),
-  Timestamp('2026-04-03'),
-  Timestamp('2027-03-26'),
-  Timestamp('2028-04-14'),
-  Timestamp('2029-03-30'),
-  Timestamp('2030-04-19'),
-]
-
-SIFMAGoodFridayEarlyClose = [
-    Timestamp('1971-04-08'),
-    Timestamp('1972-03-30'),
-    Timestamp('1973-04-19'),
-    Timestamp('1974-04-11'),
-    Timestamp('1975-03-27'),
-    Timestamp('1976-04-15'),
-    Timestamp('1977-04-07'),
-    Timestamp('1978-03-23'),
-    Timestamp('1979-04-12'),
-    Timestamp('1980-04-03'),
-    Timestamp('1981-04-16'),
-    Timestamp('1982-04-08'),
-    Timestamp('1983-03-31'),
-    Timestamp('1984-04-19'),
-    Timestamp('1985-04-04'),
-    Timestamp('1986-03-27'),
-    Timestamp('1987-04-16'),
-    Timestamp('1988-03-31'),
-    Timestamp('1989-03-23'),
-    Timestamp('1990-04-12'),
-    Timestamp('1991-03-28'),
-    Timestamp('1992-04-16'),
-    Timestamp('1993-04-08'),
-    Timestamp('1994-03-31'),
-    Timestamp('1995-04-13'),
-#    Timestamp('1996-04-04'),
-    Timestamp('1997-03-27'),
-    Timestamp('1998-04-09'),
-    Timestamp('1999-04-01'),
-    Timestamp('2000-04-20'),
-    Timestamp('2001-04-12'),
-    Timestamp('2002-03-28'),
-    Timestamp('2003-04-17'),
-    Timestamp('2004-04-08'),
-    Timestamp('2005-03-24'),
-    Timestamp('2006-04-13'),
-#    Timestamp('2007-04-05'),
-    Timestamp('2008-03-20'),
-    Timestamp('2009-04-09'),
-#    Timestamp('2010-04-01'),
-    Timestamp('2011-04-21'),
-#    Timestamp('2012-04-05'),
-    Timestamp('2013-03-28'),
-    Timestamp('2014-04-17'),
-#    Timestamp('2015-04-02'),
-    Timestamp('2016-03-24'),
-    Timestamp('2017-04-13'),
-    Timestamp('2018-03-29'),
-    Timestamp('2019-04-18'),
-    Timestamp('2020-04-09'),
-    Timestamp('2021-04-01'),
-    Timestamp('2022-04-14'),
-    Timestamp('2023-04-06'),
-    Timestamp('2024-03-28'),
-    Timestamp('2025-04-17'),
-    Timestamp('2026-04-02'),
-    Timestamp('2027-03-25'),
-    Timestamp('2028-04-13'),
-    Timestamp('2029-03-29'),
-    Timestamp('2030-04-18'),
-]
-
 # SIFMA US Bond Market Holiday Calendar
 # -------------------------------------
 
@@ -342,6 +245,7 @@ class USBOND_AbstractHolidayCalendar:
           USNewYearsDay,
           USMartinLutherKingJrAfter1986,
           USPresidentsDay,
+          SIFMAGoodFriday,
           USMemorialDay,
           USIndependenceDay,
           USLaborDay,
@@ -351,7 +255,6 @@ class USBOND_AbstractHolidayCalendar:
         ])
         
         regular_adhoc = list(chain(
-            SIFMAGoodFriday,
             SIFMAHurricaneSandyClose,
             ReaganMourning,
         ))
@@ -360,6 +263,8 @@ class USBOND_AbstractHolidayCalendar:
             SIFMAUSNewYearsEve,
             BusinessDayPriorToUSMartinLutherKingJrBefore2010,
             BusinessDayPriorToUSPresidentsDayBefore2010,
+            SIFMAMaundyThursday,
+            SIFMAGoodFridayEarlyClose,
             BusinessDayPriorToMemorialDay,
             EarlyCloseIndependenceDayExcept2009to2013,
             EarlyCloseWeekendIndependenceDayExcept2009to2013,
@@ -371,7 +276,6 @@ class USBOND_AbstractHolidayCalendar:
         ])
         
         early_adhoc = HolidayCalendar([
-            SIFMAGoodFridayEarlyClose,
             SIFMABoxingDay1997,
             SIFMAHurricaneSandyEarlyClose,
         ])
