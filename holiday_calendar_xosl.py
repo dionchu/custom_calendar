@@ -9,6 +9,7 @@
 
 from datetime import time
 from pandas import Timestamp
+from pandas.tseries.offsets import Day
 from pandas.tseries.holiday import (
     EasterMonday,
     GoodFriday,
