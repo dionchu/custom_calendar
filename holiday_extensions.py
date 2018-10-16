@@ -22,7 +22,7 @@ class HolidayWithFilter(object):
 
     def __init__(self, name, year=None, month=None, day=None, offset=None,
                  observance=None, start_date=None, end_date=None,
-                 days_of_week=None, exception_years=None):
+                 days_of_week=None, year_filter=None, year_mask=None):
         """
         Parameters
         ----------
@@ -53,7 +53,8 @@ class HolidayWithFilter(object):
         self.observance = observance
         assert (days_of_week is None or type(days_of_week) == tuple)
         self.days_of_week = days_of_week
-        self.exception_years = exception_years
+        self.year_filter = year_filter
+        self.year_mask = year_mask
 
     def __repr__(self):
         info = ''
@@ -67,8 +68,11 @@ class HolidayWithFilter(object):
         if self.observance is not None:
             info += 'observance={obs}'.format(obs=self.observance)
         
-        if self.exception_years is not None:
-            info += 'exception_years={exc}'.format(exc=self.exception_years)
+        if self.year_filter is not None:
+            info += 'year_filter={yrf}'.format(yrf=self.year_filter)
+            
+        if self.year_mast is not None:
+            info += 'year_mask={yrm}'.format(yrf=self.year_mask)            
 
         repr = 'Holiday: {name} ({info})'.format(name=self.name, info=info)
         return repr
@@ -141,8 +145,11 @@ class HolidayWithFilter(object):
                               end=reference_end_date,
                               freq=year_offset, tz=start_date.tz)
         
-        if self.exception_years is not None:
-            dates = dates[~dates.year.isin(self.exception_years)]
+        if self.year_filter is not None:
+            dates = dates[~dates.year.isin(self.year_filter)]
+        
+        if self.year_mask is not None:
+            dates = dates[~dates.year.isin(self.year_mask)]
             
         return dates
 
