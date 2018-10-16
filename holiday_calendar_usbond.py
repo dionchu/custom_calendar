@@ -91,7 +91,7 @@ USMartinLutherKingJr = Holiday(
 
 # SIFMA stopped observing early close for MLK after 2009
 BusinessDayPriorToUSMartinLutherKingJrBefore2010 = Holiday(
-    'Dr. Martin Luther King Jr. Day',
+    'Business Day prior to Dr. Martin Luther King Jr. Day',
     month=1,
     day=1,
     # MLK day signed into law in 1983, not observed until 1986.
