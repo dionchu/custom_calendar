@@ -149,7 +149,7 @@ class HolidayWithFilter(object):
             dates = dates[~dates.year.isin(self.year_filter)]
         
         if self.year_mask is not None:
-            dates = dates[~dates.year.isin(self.year_mask)]
+            dates = dates[dates.year.isin(self.year_mask)]
             
         return dates
 
