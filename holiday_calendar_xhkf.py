@@ -48,6 +48,7 @@ from .offset_extensions import (
 from .holiday_extensions import sunday_to_tuesday
 
 # BEGIN LUNAR HOLIDAYS
+
 SummerSolsticeFriday = HolidayWithFilter(
     'Sweden Summer Solstice Friday',
     month=1,
@@ -62,6 +63,12 @@ SpringFestival = HolidayWithFilter(
     day=1,
     offset=[next_spring_festival(observance=sunday_to_wednesday)],
     year_filter = [2010]
+)
+SpringFestivalEve = Holiday(
+    'Spring Festival Eve',
+    month=1,
+    day=1,
+    offset=[next_spring_festival(offset-1,days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY))]
 )
 
 SpringFestival2 = Holiday(
@@ -113,7 +120,9 @@ DoubleNineFestival = Holiday(
     day=1,
     offset=[next_double_nine_festival(observance=sunday_to_monday)]
 )
+
 # END LUNAR HOLIDAYS
+
 # BEGIN NON-LUNAR HOLIDAYS
 
 # New Year's Day: Jan 1, sunday_to_monday
@@ -173,3 +182,41 @@ Typhoon20170823 = [
 HKSAR19970702 = [
     Timestamp('1997-07-02', tz='UTC'), # Should this be UTC?
 ]
+
+# XHKF Holiday Calendar
+# -------------------------------------
+
+class XHKF_AbstractHolidayCalendar:
+    
+        regular = HolidayCalendar([
+          SummerSolsticeFriday,
+          SpringFestival,
+          SpringFestival2,
+          SpringFestival3,
+          QingMingFestival,
+          BuddhasBirthday,
+          DragonBoatFestival,
+          DayAfterMidAutumnFestival,
+          DoubleNineFestival,
+          NewYearsDay,
+          GoodFriday,
+          EasterMonday,
+          LaborDay,
+          HKSARDay,
+          PRCNationalDay,
+          Christmas,
+          BoxingDay,
+        ])
+        
+        regular_adhoc = HolidayCalendar([
+            HKJapaneseLoss20150903,
+            Typhoon20170823,
+            HKSAR19970702,
+        ])
+
+        early = HolidayCalendar([
+          SpringFestivalEve,
+          USMemorialDay,
+          ChristmasEve,
+          NewYearsEve,
+        ])
