@@ -169,17 +169,17 @@ NewYearsEve = new_years_eve(days_of_week=(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, 
 # BEGIN AD HOC HOLIDAYS
 
 # 9/3/2015: 70th anniversary of Japanese loss
-HKJapaneseLoss20150903 = [
+HKJapaneseLoss2015 = [
     Timestamp('2015-09-03', tz='UTC'), # Should this be UTC?
 ]
 
 # 8/23/2017: Typhoon (https://www.hkex.com.hk/news/news-release/2017/1708232news?sc_lang=en)
-Typhoon20170823 = [
+Typhoon2017 = [
     Timestamp('2017-08-23', tz='UTC'), # Should this be UTC?
 ]
 
 # 7/2/1997 Day after HK SAR Day--appears to be one-off statutory holiday for 1997
-HKSAR19970702 = [
+HKSAR1997 = [
     Timestamp('1997-07-02', tz='UTC'), # Should this be UTC?
 ]
 
