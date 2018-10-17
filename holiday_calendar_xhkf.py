@@ -9,7 +9,7 @@ from trading_calendars.offset_extensions import (
     next_spring_equinox,
     next_summer_solstice,
 )
-
+#test3
 SummerSolsticeFriday = HolidayWithFilter(
     'Sweden Summer Solstice Friday',
     month=1,
@@ -23,7 +23,7 @@ SpringFestival = HolidayWithFilter(
     month=1,
     day=1,
     offset=[next_spring_festival(observance=sunday_to_wednesday)],
-    year_filter = [2010]    
+    year_filter = [2010]
 )
 
 SpringFestival2 = Holiday(
@@ -46,7 +46,7 @@ QingMingFestival = HolidayWithFilter(
     day=1,
     offset=[next_spring_equinox(offset=15,observance=sunday_to_monday)],
     year_filter = [2010],
-) 
+)
 
 BuddhasBirthday = Holiday(
     'Buddhas Birthday',
