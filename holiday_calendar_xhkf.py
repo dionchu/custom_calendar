@@ -1,18 +1,10 @@
 import pandas as pd
-from trading_calendars.offset_extensions import (
-    next_spring_festival,
-    next_buddha_birthday,
-    next_dragon_boat_festival,
-    next_mid_autumn_festival,
-    next_double_nine_festival,
-    next_spring_equinox,
-    next_summer_solstice,
-)
 from datetime import time
 from pandas import (
     Timestamp,
     DateOffset,
 )
+from pytz import timezone
 from pandas.tseries.holiday import (
     Holiday,
     DateOffset,
@@ -32,20 +24,7 @@ from pandas.tseries.holiday import (
     Easter,
     EasterMonday
 )
-from pytz import timezone
-# I don't think the below applies for the repo; have commented away and adjusted the otehr imports
-'''
-import sys
-
-import os
-cwd = os.getcwd()
-sys.path.append(cwd)
-
-import trading_calendars
-'''
-from us_holidays import USMemorialDay
 from trading_calendar import (
-    TradingCalendar,
     MONDAY,
     TUESDAY,
     WEDNESDAY,
@@ -55,7 +34,17 @@ from trading_calendar import (
     SUNDAY,
     HolidayCalendar
 )
-from trading_calendar.holiday_extensions import sunday_to_tuesday
+from .offset_extensions import (
+    next_spring_festival,
+    next_buddha_birthday,
+    next_dragon_boat_festival,
+    next_mid_autumn_festival,
+    next_double_nine_festival,
+    next_spring_equinox,
+    next_summer_solstice,
+)
+
+from .holiday_extensions import sunday_to_tuesday
 
 # BEGIN LUNAR HOLIDAYS
 SummerSolsticeFriday = HolidayWithFilter(
