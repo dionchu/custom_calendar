@@ -45,8 +45,12 @@ from .offset_extensions import (
     next_summer_solstice,
 )
 
-from .holiday_extensions import sunday_to_tuesday
-
+from .holiday_extensions import (
+    friday_week_of,
+    sunday_to_tuesday,
+    sunday_to_wednesday,
+    hong_kong_rules,
+)
 # BEGIN LUNAR HOLIDAYS
 
 SummerSolsticeFriday = HolidayWithFilter(
@@ -111,7 +115,7 @@ DayAfterMidAutumnFestival = Holiday(
     'Day After Mid Autumn Festival',
     month=1,
     day=1,
-    offset=[next_mid_autumn_festival(offset=1, observance=sunday_to_monday)]
+    offset=[next_mid_autumn_festival(offset=1, observance=hong_kong_rules)]
 )
 
 DoubleNineFestival = Holiday(
@@ -187,7 +191,7 @@ HKSAR1997 = [
 # -------------------------------------
 
 class XHKF_AbstractHolidayCalendar:
-    
+
         regular = HolidayCalendar([
           SummerSolsticeFriday,
           SpringFestival,
@@ -207,7 +211,7 @@ class XHKF_AbstractHolidayCalendar:
           Christmas,
           BoxingDay,
         ])
-        
+
         regular_adhoc = HolidayCalendar([
             HKJapaneseLoss20150903,
             Typhoon20170823,
