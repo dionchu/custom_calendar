@@ -44,7 +44,7 @@ class IFEUExchangeCalendar(TradingCalendar):
 
     name = 'IFEU'
 
-    tz = timezone("UK/London")
+    tz = timezone("Europe/London")
 
     open_times = (
         (None, time(8, 1)),
