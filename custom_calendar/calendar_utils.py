@@ -4,72 +4,47 @@ from .errors import (
     CyclicCalendarAlias,
     InvalidCalendarName,
 )
-from .exchange_calendar_bvmf import BVMFExchangeCalendar
-from .exchange_calendar_cmes import CMESExchangeCalendar
-from .exchange_calendar_iepa import IEPAExchangeCalendar
-from .exchange_calendar_xams import XAMSExchangeCalendar
+from .exchange_calendar_bmex import BMEXExchangeCalendar
+from .exchange_calendar_ifeu import IFEUExchangeCalendar
+from .exchange_calendar_ifus import IFUSExchangeCalendar
 from .exchange_calendar_xasx import XASXExchangeCalendar
 from .exchange_calendar_xbru import XBRUExchangeCalendar
-from .exchange_calendar_xcbf import XCBFExchangeCalendar
-from .exchange_calendar_xfra import XFRAExchangeCalendar
-from .exchange_calendar_xhkg import XHKGExchangeCalendar
-from .exchange_calendar_xlis import XLISExchangeCalendar
-from .exchange_calendar_xlon import XLONExchangeCalendar
-from .exchange_calendar_xmad import XMADExchangeCalendar
+from .exchange_calendar_xcme import XCMEExchangeCalendar
+from .exchange_calendar_xjpx import XJPXExchangeCalendar
 from .exchange_calendar_xmil import XMILExchangeCalendar
+from .exchange_calendar_xmod import XMODExchangeCalendar
+from .exchange_calendar_xnym import XNYMExchangeCalendar
 from .exchange_calendar_xnys import XNYSExchangeCalendar
-from .exchange_calendar_xnze import XNZEExchangeCalendar
 from .exchange_calendar_xpar import XPARExchangeCalendar
-from .exchange_calendar_xswx import XSWXExchangeCalendar
-from .exchange_calendar_xtks import XTKSExchangeCalendar
 from .exchange_calendar_xtse import XTSEExchangeCalendar
-from .exchange_calendar_xwbo import XWBOExchangeCalendar
-from .us_futures_calendar import QuantopianUSFuturesCalendar
 from .weekday_calendar import WeekdayCalendar
 
 _default_calendar_factories = {
     # Exchange calendars.
-    'BVMF': BVMFExchangeCalendar,
-    'CMES': CMESExchangeCalendar,
-    'IEPA': IEPAExchangeCalendar,
-    'XAMS': XAMSExchangeCalendar,
+    'BMEX': BMEXExchangeCalendar,
+    'IFEU': IFEUExchangeCalendar,
+    'IFUS': IFUSExchangeCalendar,
     'XASX': XASXExchangeCalendar,
     'XBRU': XBRUExchangeCalendar,
-    'XCBF': XCBFExchangeCalendar,
-    'XFRA': XFRAExchangeCalendar,
-    'XHKG': XHKGExchangeCalendar,
-    'XLIS': XLISExchangeCalendar,
-    'XLON': XLONExchangeCalendar,
-    'XMAD': XMADExchangeCalendar,
+    'XCME': XCMEExchangeCalendar,
+    'XJPX': XJPXExchangeCalendar,
     'XMIL': XMILExchangeCalendar,
+    'XMOD': XMODExchangeCalendar,
+    'XNYM': XNYMExchangeCalendar,
     'XNYS': XNYSExchangeCalendar,
-    'XNZE': XNZEExchangeCalendar,
     'XPAR': XPARExchangeCalendar,
-    'XSWX': XSWXExchangeCalendar,
-    'XTKS': XTKSExchangeCalendar,
     'XTSE': XTSEExchangeCalendar,
-    'XWBO': XWBOExchangeCalendar,
     # Miscellaneous calendars.
-    'us_futures': QuantopianUSFuturesCalendar,
     '24/7': AlwaysOpenCalendar,
     '24/5': WeekdayCalendar,
 }
 _default_calendar_aliases = {
-    'NYSE': 'XNYS',
-    'NASDAQ': 'XNYS',
-    'BATS': 'XNYS',
-    'FWB': 'XFRA',
-    'LSE': 'XLON',
     'TSX': 'XTSE',
-    'BMF': 'BVMF',
     'CME': 'CMES',
-    'CBOT': 'CMES',
-    'COMEX': 'CMES',
-    'NYMEX': 'CMES',
-    'ICE': 'IEPA',
-    'ICEUS': 'IEPA',
-    'NYFE': 'IEPA',
-    'CFE': 'XCBF',
+    'CBOT': 'XCME',
+    'COMEX': 'XCME',
+    'ICE': 'IFEU',
+    'ICEUS': 'IFUS',
 }
 default_calendar_names = sorted(_default_calendar_factories.keys())
 

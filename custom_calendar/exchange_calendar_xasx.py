@@ -89,8 +89,10 @@ LastTradingDayOfCalendarYear = Holiday(
 class XASXExchangeCalendar(TradingCalendar):
     """
     Calendar for the Australian Securities Exchange in Sydney.
+
     Open Time: 10:00 AM, Australian Eastern Time
     Close Time: 4:00 PM, Australian Eastern Time
+
     Regularly-Observed Holidays:
       - New Year's Day
       - Australia Day
@@ -100,29 +102,24 @@ class XASXExchangeCalendar(TradingCalendar):
       - Queen's Birthday
       - Christmas Day
       - Boxing Day
+
     Early Closes:
       - Last trading day before Christmas
       - Last trading day of the calendar year
     """
     regular_early_close = time(14, 10)
-    regular_open = time(10,25)
-    regular_close = time(16,30)
-    
-    @property
-    def name(self):
-        return 'XASX'
 
-    @property
-    def tz(self):
-        return timezone('Australia/Sydney')
+    name = 'XASX'
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    tz = timezone('Australia/Sydney')
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    open_times = (
+        (None, time(10, 1)),
+    )
+
+    close_times = (
+        (None, time(16)),
+    )
 
     @property
     def regular_holidays(self):
