@@ -25,7 +25,20 @@ def sunday_to_wednesday(dt):
     If holiday falls on Sunday, use three days thereafter (Wednesday) instead.
     """
     if dt.weekday() == 6:
-        return dt + timedelta(2)
+        return dt + timedelta(3)
+    return dt
+
+def hong_kong_rules(dt):
+    """
+    If holiday falls on National Day observance, move to day after National Day
+    """
+    prc_day = datetime(dt.year,10,1)
+    if prc_day.weekday() == 6:
+        prc_day = prc_day + timedelta(1)
+    if dt.weekday() == 6:
+        dt = dt + timedelta(1)
+    if dt.month == 10 and dt.day == prc_day.day:
+        return dt.replace(day=prc_day.day+1)
     return dt
 
 class HolidayWithFilter(object):
@@ -50,8 +63,7 @@ class HolidayWithFilter(object):
         days_of_week:
             provide a tuple of days e.g  (0,1,2,3,) for Monday Through Thursday
             Monday=0,..,Sunday=6
-        """  
-        
+        """
         if offset is not None and observance is not None:
             raise NotImplementedError("Cannot use both offset and observance.")
 
