@@ -41,28 +41,18 @@ class IFEUExchangeCalendar(TradingCalendar):
     """
     product_group = 'UK' # UK, US, EU
     regular_early_close = time(13)
-    regular_open = time(8,1)
-    regular_close = time(18)
-    
-    @property
-    def name(self):
-        return "IFEU"
 
-    @property
-    def tz(self):
-        return timezone("UK/London")
+    name = 'IFEU'
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    tz = timezone("UK/London")
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    open_times = (
+        (None, time(8, 1)),
+    )
 
-    @property
-    def open_offset(self):
-        return -1
+    close_times = (
+        (None, time(18)),
+    )
 
     @property
     def adhoc_holidays(self):
@@ -90,7 +80,7 @@ class IFEUExchangeCalendar(TradingCalendar):
                 [Timestamp('2012-10-29', tz='UTC')],
                 EUBANK_AbstractHolidayCalendar.regular_adhoc,
             ))
-        
+
     @property
     def regular_holidays(self):
         # https://www.theice.com/publicdocs/futures_us/exchange_notices/NewExNot2016Holidays.pdf # noqa

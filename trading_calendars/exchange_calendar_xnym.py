@@ -51,24 +51,18 @@ class XNYMExchangeCalendar(TradingCalendar):
     - Christmas
     """
     regular_early_close = time(12)
-    regular_open = time(17, 1)
-    regular_close = time(17)
     
-    @property
-    def name(self):
-        return "NYM"
+    name = 'XNYM'
 
-    @property
-    def tz(self):
-        return timezone('America/New_York')
+    tz = timezone('America/New_York')
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    open_times = (
+        (None, time(17, 1)),
+    )
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    close_times = (
+        (None, time(17)),
+    )
 
     @property
     def open_offset(self):

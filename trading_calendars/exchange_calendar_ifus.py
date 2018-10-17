@@ -30,26 +30,22 @@ class IFUSExchangeCalendar(TradingCalendar):
 
     https://www.theice.com/publicdocs/futures_us/ICE_Futures_US_Regular_Trading_Hours.pdf # noqa
     """
-    
+
     regular_early_close = time(13)
     regular_open = time(20,1)
     regular_close = time(18)
-    
-    @property
-    def name(self):
-        return "IFUS"
 
-    @property
-    def tz(self):
-        return timezone("US/Eastern")
+    name = 'IFUS'
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    tz = timezone("US/Eastern")
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    open_times = (
+        (None, time(20, 1)),
+    )
+
+    close_times = (
+        (None, time(18)),
+    )
 
     @property
     def open_offset(self):

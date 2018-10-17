@@ -44,26 +44,26 @@ class XMODExchangeCalendar(TradingCalendar):
     """
     product_group = 'EQD' # EQD or IRD
     eqd_regular_early_close = time(13)
-    eqd_regular_open = time(9, 31)
-    eqd_regular_close = time(16, 30)
     ird_regular_early_close = time(13, 30)
-    ird_regular_open = time(2, 1)
-    ird_regular_close = time(16, 30)
-        
-    @property
-    def name(self):
-        return "XMOD"
 
-    @property
-    def tz(self):
-        return timezone('Canada/Atlantic')
+    name = 'XMOD'
 
-    @property
-    def open_time(self):
-        if self.product_group == 'EQD':
-            return self.eqd_regular_open
-        elif self.product_group == 'IRD':
-            return self.ird_regular_open
+    tz = timezone('Canada/Atlantic')
+
+    if self.product_group == 'IRD':
+        open_times = (
+            (None, time(2, 31)),
+        )
+        close_times = (
+            (None, time(16, 30)),
+        )
+    else:
+        open_times = (
+            (None, time(9, 31)),
+        )
+        close_times = (
+            (None, time(16, 30)),
+        )
 
     @property
     def close_time(self):

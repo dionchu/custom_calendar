@@ -55,22 +55,18 @@ class XCMEExchangeCalendar(TradingCalendar):
     regular_early_close = time(12)
     regular_open = time(17, 1)
     regular_close = time(17)
-    
-    @property
-    def name(self):
-        return "XCME"
 
-    @property
-    def tz(self):
-        return timezone('America/Chicago')
+    name = 'XCME'
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    tz = timezone('America/Chicago')
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    open_times = (
+        (None, time(17, 1)),
+    )
+
+    close_times = (
+        (None, time(16)),
+    )
 
     @property
     def open_offset(self):

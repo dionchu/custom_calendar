@@ -114,24 +114,18 @@ class BMEXExchangeCalendar(TradingCalendar):
       - New Year's Eve (2012 and after)
     """
     regular_early_close = time(14, 00)
-    regular_open = time(9,1)
-    regular_close = time(17, 30)
     
-    @property
-    def name(self):
-        return 'BMEX'
+    name = 'BMEX'
 
-    @property
-    def tz(self):
-        return timezone('Europe/Madrid')
+    tz = timezone('Europe/Madrid')
 
-    @property
-    def open_time(self):
-        return self.regular_open
+    open_times = (
+        (None, time(9, 1)),
+    )
 
-    @property
-    def close_time(self):
-        return self.regular_close
+    close_times = (
+        (None, time(17, 30)),
+    )
 
     @property
     def regular_holidays(self):
