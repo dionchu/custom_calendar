@@ -34,6 +34,7 @@ from trading_calendar import (
     SUNDAY,
     HolidayCalendar
 )
+from .us_holidays import from USMemorialDay
 from .offset_extensions import (
     next_spring_festival,
     next_buddha_birthday,
