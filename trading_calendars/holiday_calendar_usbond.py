@@ -9,6 +9,7 @@
 # Check MLK Day first observed in Federal Payment System
 
 from datetime import time
+from itertools import chain
 
 from pandas import (
     Timestamp,
@@ -51,7 +52,7 @@ from .us_holidays import (
     USMemorialDay,
     USIndependenceDay,
     September11Closings,
-    HurricaneSandyClosings,    
+    HurricaneSandyClosings,
 )
 
 from .trading_calendar import (
@@ -100,32 +101,32 @@ BusinessDayPriorToUSMartinLutherKingJrBefore2010 = Holiday(
     # MLK day signed into law in 1983, not observed until 1986.
     start_date=Timestamp('1986-01-01'),
     end_date=Timestamp('2010-01-01'),
-    offset=[DateOffset(weekday=MO(3)),pd.DateOffset(-3)],
+    offset=[DateOffset(weekday=MO(3)),DateOffset(-3)],
 )
 
 # 2009 was the last year SIFMA observed early close the day prior to President's Day
 BusinessDayPriorToUSPresidentsDayBefore2010 = Holiday(
-    'Business Day prior to President's Day',
+    'Business Day prior to Presidents Day',
     month=2,
     day=1,
-    offset=[DateOffset(weekday=MO(3)),pd.DateOffset(-3)],
+    offset=[DateOffset(weekday=MO(3)),DateOffset(-3)],
     end_date=Timestamp('2010-01-01'),
 )
 
 BusinessDayPriorToMemorialDay = Holiday(
-    'Business Day prior to Memorial Day', 
+    'Business Day prior to Memorial Day',
     month=5,
     day=25,
-    offset=[DateOffset(weekday=MO(1)),pd.DateOffset(-3)],
+    offset=[DateOffset(weekday=MO(1)),DateOffset(-3)],
 )
 
 # SIFMA occasionally does not recommend Good Friday full close
 # instead it will stay open for a half day, in most cases
 # the Thursday before will not be a half day
 SIFMAGoodFriday = HolidayWithFilter(
-    'SIFMA Good Friday', 
-    month=1, 
-    day=1, 
+    'SIFMA Good Friday',
+    month=1,
+    day=1,
     offset=[Easter(), Day(-2)],
     year_filter = [1999,2007,2010,2012,2015],
 )
@@ -133,9 +134,9 @@ SIFMAGoodFriday = HolidayWithFilter(
 # SIFMA generally recommends early close day before Good Friday
 # if Good Friday is closed
 SIFMAMaundyThursday = HolidayWithFilter(
-    'SIFMA Maundy Thursday early close', 
-    month=1, 
-    day=1, 
+    'SIFMA Maundy Thursday early close',
+    month=1,
+    day=1,
     offset=[Easter(), Day(-3)],
     year_filter = [2007,2010,2012,2015],
 )
@@ -143,9 +144,9 @@ SIFMAMaundyThursday = HolidayWithFilter(
 # Where SIFMA does not recommend a full close on Good Friday,
 # it is an early close
 SIFMAGoodFridayEarlyClose = HolidayWithFilter(
-    'SIFMA Good Friday', 
-    month=1, 
-    day=1, 
+    'SIFMA Good Friday',
+    month=1,
+    day=1,
     offset=[Easter(), Day(-2)],
     year_mask = [1999,2007,2010,2012,2015],
 )
@@ -168,41 +169,41 @@ EarlyCloseWeekendIndependenceDayExcept2009to2013 = HolidayWithFilter(
     'Weekend July 4th Early Close',
     month=7,
     day=2,
-    days_of_week=(THURSDAY,FRIDAY),  
+    days_of_week=(THURSDAY,FRIDAY),
     year_filter = [2009,2010,2011,2012,2013],
 )
 
-# 2008 was the last year SIFMA observed early close the day prior to Labor Day 
+# 2008 was the last year SIFMA observed early close the day prior to Labor Day
 FridayBeforeLaborDayBefore2009 = Holiday(
-    'Early Close Friday Before Labor Day'
+    'Early Close Friday Before Labor Day',
     month=9,
     day=1,
-    offset=[pd.DateOffset(weekday=MO(1)),pd.DateOffset(-3)],
+    offset=[DateOffset(weekday=MO(1)),DateOffset(-3)],
     end_date=Timestamp('2009-01-01'),
 )
 
 # 2008 was the last year SIFMA observed early close the day prior to Columbus Day
 FridayBeforeColumbusDayBefore2009 = Holiday(
-    'Early Close Friday Before Columbus Day'
+    'Early Close Friday Before Columbus Day',
     month=10,
     day=1,
-    offset=[pd.DateOffset(weekday=MO(2)),pd.DateOffset(-3)],
+    offset=[DateOffset(weekday=MO(2)),DateOffset(-3)],
     end_date=Timestamp('2009-01-01'),
 )
 
 WednesdayBeforeThanksgiving = Holiday(
-    'Early Close Wednesday Before Thanksgiving Day'
+    'Early Close Wednesday Before Thanksgiving Day',
     month=11,
     day=1,
-    offset=[pd.DateOffset(weekday=TH(4)),pd.DateOffset(-1)],
+    offset=[DateOffset(weekday=TH(4)),DateOffset(-1)],
 )
 
 # 2008 was the last year SIFMA observed early close for Black Friday
 BlackFridayBefore2009 = Holiday(
-    'Early Close Wednesday Before Thanksgiving Day'
+    'Early Close Wednesday Before Thanksgiving Day',
     month=11,
     day=1,
-    offset=[pd.DateOffset(weekday=TH(4)),pd.DateOffset(1)],
+    offset=[DateOffset(weekday=TH(4)),DateOffset(1)],
     end_date=Timestamp('2009-01-01'),
 )
 
@@ -249,7 +250,7 @@ class USBOND_AbstractHolidayCalendar:
 
         regular = HolidayCalendar([
           USNewYearsDay,
-          USMartinLutherKingJrAfter1986,
+          USMartinLutherKingJr,
           USPresidentsDay,
           SIFMAGoodFriday,
           USMemorialDay,
@@ -259,12 +260,12 @@ class USBOND_AbstractHolidayCalendar:
           USThanksgivingDay,
           Christmas,
         ])
-        
+
         regular_adhoc = list(chain(
             SIFMAHurricaneSandyClose,
             ReaganMourning,
         ))
-        
+
         early = HolidayCalendar([
             SIFMAUSNewYearsEve,
             BusinessDayPriorToUSMartinLutherKingJrBefore2010,
@@ -280,7 +281,7 @@ class USBOND_AbstractHolidayCalendar:
             BlackFridayBefore2009,
             ChristmasEve,
         ])
-        
+
         early_adhoc = HolidayCalendar([
             SIFMABoxingDay1997,
             SIFMAHurricaneSandyEarlyClose,
