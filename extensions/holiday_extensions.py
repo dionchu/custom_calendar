@@ -64,6 +64,7 @@ class HolidayWithFilter(object):
             provide a tuple of days e.g  (0,1,2,3,) for Monday Through Thursday
             Monday=0,..,Sunday=6
         """
+
         if offset is not None and observance is not None:
             raise NotImplementedError("Cannot use both offset and observance.")
 
@@ -93,12 +94,12 @@ class HolidayWithFilter(object):
 
         if self.observance is not None:
             info += 'observance={obs}'.format(obs=self.observance)
-        
+
         if self.year_filter is not None:
             info += 'year_filter={yrf}'.format(yrf=self.year_filter)
-            
+
         if self.year_mask is not None:
-            info += 'year_mask={yrm}'.format(yrf=self.year_mask)            
+            info += 'year_mask={yrm}'.format(yrf=self.year_mask)
 
         repr = 'Holiday: {name} ({info})'.format(name=self.name, info=info)
         return repr
@@ -141,7 +142,7 @@ class HolidayWithFilter(object):
                 filter_end_date.tz), filter_end_date)
         holiday_dates = holiday_dates[(holiday_dates >= filter_start_date) &
                                       (holiday_dates <= filter_end_date)]
-            
+
         if return_name:
             return Series(self.name, index=holiday_dates)
         return holiday_dates
@@ -170,13 +171,13 @@ class HolidayWithFilter(object):
         dates = DatetimeIndex(start=reference_start_date,
                               end=reference_end_date,
                               freq=year_offset, tz=start_date.tz)
-        
+
         if self.year_filter is not None:
             dates = dates[~dates.year.isin(self.year_filter)]
-        
+
         if self.year_mask is not None:
             dates = dates[dates.year.isin(self.year_mask)]
-            
+
         return dates
 
     def _apply_rule(self, dates):
