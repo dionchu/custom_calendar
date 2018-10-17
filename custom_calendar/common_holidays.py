@@ -10,7 +10,7 @@ from pytz import timezone
 from .trading_calendar import MONDAY, TUESDAY
 
 # It doesn't appear that Japan follows the actual vernal equinox, must be some adjustment for weekends?
-#next_vernal_equinox =  lambda x: Timestamp(ephem.next_vernal_equinox(x).datetime().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%d')) 
+#next_vernal_equinox =  lambda x: Timestamp(ephem.next_vernal_equinox(x).datetime().replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%d'))
 #VernalEquinoxes = [next_vernal_equinox(x) for x in drange]
 
 def new_years_day(start_date=None,
@@ -66,7 +66,7 @@ def wed_before_maundy_thursday(start_date=None, end_date=None):
         start_date=start_date,
         end_date=end_date,
     )
-  
+
 def maundy_thursday(start_date=None, end_date=None):
     return Holiday(
         "Maundy Thursday",
@@ -76,7 +76,7 @@ def maundy_thursday(start_date=None, end_date=None):
         start_date=start_date,
         end_date=end_date,
     )
-  
+
 def european_labour_day(start_date=None,
                         end_date=None,
                         observance=None,
@@ -91,7 +91,16 @@ def european_labour_day(start_date=None,
         days_of_week=days_of_week,
     )
 
-
+def chinese_national_day(start_date=None, end_date=None, observance=None):
+    return Holiday(
+        "Chinese National Day",
+        month=10,
+        day=1,
+        start_date=start_date,
+        end_date=end_date,
+        observance=observance,
+    )
+    
 # Ascension Day, Whit Monday, and Corpus Christi do not take observance as a
 # parameter because they depend on a particular offset, and offset and
 # observance cannot both be passed to a Holiday.
