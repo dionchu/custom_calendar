@@ -45,32 +45,19 @@ class XMODExchangeCalendar(TradingCalendar):
     product_group = 'EQD' # EQD or IRD
     eqd_regular_early_close = time(13)
     ird_regular_early_close = time(13, 30)
-
+    # ird_open_time = time(2, 31)
+    # ird_close_time = time(16, 30)
     name = 'XMOD'
 
     tz = timezone('Canada/Atlantic')
 
-    if self.product_group == 'IRD':
-        open_times = (
-            (None, time(2, 31)),
-        )
-        close_times = (
-            (None, time(16, 30)),
-        )
-    else:
-        open_times = (
-            (None, time(9, 31)),
-        )
-        close_times = (
-            (None, time(16, 30)),
-        )
+    open_times = (
+        (None, time(9, 31)),
+    )
 
-    @property
-    def close_time(self):
-        if self.product_group == 'EQD':
-            return self.eqd_regular_close
-        elif self.product_group == 'IRD':
-            return self.ird_regular_close
+    close_times = (
+        (None, time(16, 30)),
+    )
 
     @property
     def regular_holidays(self):
