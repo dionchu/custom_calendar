@@ -1,5 +1,3 @@
-#test
-#test merge
 import pandas as pd
 from trading_calendars.offset_extensions import (
     next_spring_festival,
@@ -10,7 +8,7 @@ from trading_calendars.offset_extensions import (
     next_spring_equinox,
     next_summer_solstice,
 )
-#test3
+
 SummerSolsticeFriday = HolidayWithFilter(
     'Sweden Summer Solstice Friday',
     month=1,
