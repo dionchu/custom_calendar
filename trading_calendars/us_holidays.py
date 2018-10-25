@@ -53,6 +53,11 @@ USNewYearsDay = new_years_day(
     # When Jan 1 is a Saturday (as in 2005 and 2011), no holiday is observed.
     observance=sunday_to_monday
 )
+USVeteransDay = Holiday(
+    'Veterans Day',
+    month=11,
+    day=11,
+)
 USMartinLutherKingJrAfter1998 = Holiday(
     'Dr. Martin Luther King Jr. Day',
     month=1,
@@ -61,6 +66,16 @@ USMartinLutherKingJrAfter1998 = Holiday(
     start_date=Timestamp('1998-01-01'),
     offset=DateOffset(weekday=MO(3)),
 )
+
+USMartinLutherKingJrAfter1995 = Holiday(
+    'Dr. Martin Luther King Jr. Day',
+    month=1,
+    day=1,
+    # The US markets didn't observe MLK day as a holiday until 1998.
+    start_date=Timestamp('1995-01-01'),
+    offset=DateOffset(weekday=MO(3)),
+)
+
 USMemorialDay = Holiday(
     # NOTE: The definition for Memorial Day is incorrect as of pandas 0.16.0.
     # See https://github.com/pydata/pandas/issues/9760.

@@ -14,12 +14,15 @@
 # limitations under the License.
 
 from datetime import time
+from pandas import date_range, Timestamp
+from itertools import chain
 
 from pandas.tseries.holiday import (
     USPresidentsDay,
     USLaborDay,
     USThanksgivingDay,
-    GoodFriday
+    GoodFriday,
+    USColumbusDay,
 )
 from pytz import timezone
 
@@ -34,11 +37,16 @@ from .us_holidays import (
     ChristmasEveInOrAfter1993,
     USBlackFridayInOrAfter1993,
     USNationalDaysofMourning,
-    USMartinLutherKingJrAfter1998,
+    USMartinLutherKingJrAfter1995,
     USMemorialDay,
-    USIndependenceDay
+    USIndependenceDay,
+    USVeteransDay,
 )
 
+September11Closings = date_range('2001-09-12', '2001-09-13', tz='UTC')
+November12Closing2007 = [Timestamp('2007-11-12', tz='UTC'),
+                         Timestamp('1992-04-14', tz='UTC'),
+                         Timestamp('2001-11-12', tz='UTC')]
 
 class XCMEExchangeCalendar(TradingCalendar):
     """
@@ -85,26 +93,40 @@ class XCMEExchangeCalendar(TradingCalendar):
         # go with the most conservative hours - and treat July 4 as an early
         # close at noon.
         return HolidayCalendar([
+            USMartinLutherKingJrAfter1995,
             USNewYearsDay,
+            USPresidentsDay,
             GoodFriday,
+            USMemorialDay,
+            USColumbusDay,
+            USLaborDay,
+            USIndependenceDay,
+            USThanksgivingDay,
+#            USBlackFridayInOrAfter1993,
             Christmas,
+#            ChristmasEveBefore1993,
+#            ChristmasEveInOrAfter1993,
+            USVeteransDay,
         ])
 
     @property
     def adhoc_holidays(self):
-        return USNationalDaysofMourning
+        return list(chain(USNationalDaysofMourning,
+                          September11Closings,
+                          November12Closing2007
+        ))
 
     @property
     def special_closes(self):
         return [(
             self.regular_early_close,
             HolidayCalendar([
-                USMartinLutherKingJrAfter1998,
-                USPresidentsDay,
-                USMemorialDay,
-                USLaborDay,
-                USIndependenceDay,
-                USThanksgivingDay,
+#                USMartinLutherKingJrAfter1998,
+#                USPresidentsDay,
+#                USMemorialDay,
+#                USLaborDay,
+#                USIndependenceDay,
+#                USThanksgivingDay,
                 USBlackFridayInOrAfter1993,
                 ChristmasEveBefore1993,
                 ChristmasEveInOrAfter1993,
