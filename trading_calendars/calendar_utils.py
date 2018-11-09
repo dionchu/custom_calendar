@@ -70,7 +70,7 @@ class TradingCalendarDispatcher(object):
         self._calendar_factories = calendar_factories
         self._aliases = aliases
 
-    def get_calendar(self, name):
+    def get_calendar(self, name, group = None):
         """
         Retrieves an instance of an TradingCalendar whose name is given.
 
@@ -87,7 +87,13 @@ class TradingCalendarDispatcher(object):
         canonical_name = self.resolve_alias(name)
 
         try:
-            return self._calendars[canonical_name]
+            if group is not None:
+                calendar = self._calendars[canonical_name]
+                calendar.product_group = group
+                calendar.__init__()
+                return calendar
+            else:
+                return self._calendars[canonical_name]
         except KeyError:
             # We haven't loaded this calendar yet, so make a new one.
             pass
@@ -100,7 +106,12 @@ class TradingCalendarDispatcher(object):
 
         # Cache the calendar for future use.
         calendar = self._calendars[canonical_name] = factory()
-        return calendar
+        if group is not None:
+            calendar.product_group = group
+            calendar.__init__()
+            return calendar
+        else:
+            return calendar
 
     def has_calendar(self, name):
         """

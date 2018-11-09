@@ -16,7 +16,7 @@
 from datetime import time
 from pandas import date_range, Timestamp
 from itertools import chain
-
+from pandas.tseries.offsets import CustomBusinessDay
 from pandas.tseries.holiday import (
     USPresidentsDay,
     USLaborDay,
@@ -41,9 +41,11 @@ from .us_holidays import (
     USMemorialDay,
     USIndependenceDay,
     USVeteransDay,
+    September11Closings,
 )
 
-September11Closings = date_range('2001-09-12', '2001-09-13', tz='UTC')
+EQDSeptember11Closings = September11Closings
+IRDSeptember11Closings = date_range('2001-09-12', '2001-09-13', tz='UTC')
 November12Closing2007 = [Timestamp('2007-11-12', tz='UTC'),
                          Timestamp('1992-04-14', tz='UTC'),
                          Timestamp('2001-11-12', tz='UTC')]
@@ -60,6 +62,10 @@ class XCMEExchangeCalendar(TradingCalendar):
     - Good Friday
     - Christmas
     """
+#    def __init__(self):
+#        super(XCMEExchangeCalendar,self).__init__(start=Timestamp('1990-01-01', tz='UTC'),end=Timestamp('today', tz='UTC'))
+
+    product_group = 'IRD' # 'EQD' 'METALS' 'SOFTS'
     regular_early_close = time(12)
     regular_open = time(17, 1)
     regular_close = time(17)
@@ -111,10 +117,16 @@ class XCMEExchangeCalendar(TradingCalendar):
 
     @property
     def adhoc_holidays(self):
-        return list(chain(USNationalDaysofMourning,
-                          September11Closings,
-                          November12Closing2007
-        ))
+        if self.product_group == 'EQD':
+            return list(chain(USNationalDaysofMourning,
+                              EQDSeptember11Closings,
+                              November12Closing2007
+            ))
+        if self.product_group == 'IRD':
+            return list(chain(USNationalDaysofMourning,
+                              IRDSeptember11Closings,
+                              November12Closing2007
+            ))
 
     @property
     def special_closes(self):
@@ -132,3 +144,11 @@ class XCMEExchangeCalendar(TradingCalendar):
                 ChristmasEveInOrAfter1993,
             ])
         )]
+
+    @property
+    def day(self):
+        return CustomBusinessDay(
+            holidays=self.adhoc_holidays,
+            calendar=self.regular_holidays,
+            weekmask=self.weekmask,
+        )
