@@ -98,22 +98,42 @@ class XCMEExchangeCalendar(TradingCalendar):
         # For now, we will treat the CME as having a single calendar, and just
         # go with the most conservative hours - and treat July 4 as an early
         # close at noon.
-        return HolidayCalendar([
-            USMartinLutherKingJrAfter1995,
-            USNewYearsDay,
-            USPresidentsDay,
-            GoodFriday,
-            USMemorialDay,
-            USColumbusDay,
-            USLaborDay,
-            USIndependenceDay,
-            USThanksgivingDay,
-#            USBlackFridayInOrAfter1993,
-            Christmas,
-#            ChristmasEveBefore1993,
-#            ChristmasEveInOrAfter1993,
-            USVeteransDay,
-        ])
+        if self.product_group == 'IRD':
+            return HolidayCalendar([
+                USMartinLutherKingJrAfter1995,
+                USNewYearsDay,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USColumbusDay,
+                USLaborDay,
+                USIndependenceDay,
+                USThanksgivingDay,
+                Christmas,
+                USVeteransDay,
+            ])
+        if self.product_group == 'EQD':
+            return HolidayCalendar([
+                USMartinLutherKingJrAfter1995,
+                USNewYearsDay,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USColumbusDay,
+                USLaborDay,
+                USIndependenceDay,
+                USThanksgivingDay,
+                Christmas,
+                USVeteransDay,
+            ])
+        if self.product_group == 'ENERGY':
+            return HolidayCalendar([
+                USNewYearsDay,
+                GoodFriday,
+                USThanksgivingDay,
+                Christmas,
+            ])
+
 
     @property
     def adhoc_holidays(self):
@@ -127,23 +147,58 @@ class XCMEExchangeCalendar(TradingCalendar):
                               IRDSeptember11Closings,
                               November12Closing2007
             ))
+        if self.product_group == 'ENERGY':
+            return list(chain(USNationalDaysofMourning,
+                              IRDSeptember11Closings,
+                              November12Closing2007
+            ))
 
     @property
     def special_closes(self):
-        return [(
-            self.regular_early_close,
-            HolidayCalendar([
-#                USMartinLutherKingJrAfter1998,
-#                USPresidentsDay,
-#                USMemorialDay,
-#                USLaborDay,
-#                USIndependenceDay,
-#                USThanksgivingDay,
-                USBlackFridayInOrAfter1993,
-                ChristmasEveBefore1993,
-                ChristmasEveInOrAfter1993,
-            ])
-        )]
+        if self.product_group == 'IRD':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+    #                USMartinLutherKingJrAfter1998,
+    #                USPresidentsDay,
+    #                USMemorialDay,
+    #                USLaborDay,
+    #                USIndependenceDay,
+    #                USThanksgivingDay,
+                    USBlackFridayInOrAfter1993,
+                    ChristmasEveBefore1993,
+                    ChristmasEveInOrAfter1993,
+                ])
+            )]
+        if self.product_group == 'EQD':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+                    USMartinLutherKingJrAfter1998,
+                    USPresidentsDay,
+                    USMemorialDay,
+                    USLaborDay,
+                    USIndependenceDay,
+                    USThanksgivingDay,
+                    USBlackFridayInOrAfter1993,
+                    ChristmasEveBefore1993,
+                    ChristmasEveInOrAfter1993,
+                ])
+            )]
+        if self.product_group == 'ENERGY':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+                    USMartinLutherKingJrAfter1998,
+                    USPresidentsDay,
+                    USMemorialDay,
+                    USLaborDay,
+                    USIndependenceDay,
+                    USBlackFridayInOrAfter1993,
+                    ChristmasEveBefore1993,
+                    ChristmasEveInOrAfter1993,
+                ])
+            )]
 
     @property
     def day(self):
