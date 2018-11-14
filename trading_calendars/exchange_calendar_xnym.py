@@ -14,6 +14,8 @@
 # limitations under the License.
 
 from datetime import time
+from itertools import chain
+from pandas import date_range, Timestamp
 
 from pandas.tseries.holiday import (
     USPresidentsDay,
@@ -33,12 +35,29 @@ from .us_holidays import (
     ChristmasEveBefore1993,
     ChristmasEveInOrAfter1993,
     USBlackFridayInOrAfter1993,
+    USBlackFriday1993to2006,
     USNationalDaysofMourning,
     USMartinLutherKingJrAfter1998,
     USMemorialDay,
     USIndependenceDay
 )
 
+
+
+September11Closings = date_range('2001-09-11','2001-09-13', tz='UTC')
+IndependenceDayClosings = [Timestamp('1995-07-03', tz='UTC'),
+                         Timestamp('1996-07-05', tz='UTC'),
+                         Timestamp('2000-07-03', tz='UTC'),
+                         Timestamp('2002-07-05', tz='UTC'),
+                         Timestamp('2006-07-03', tz='UTC')]
+RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
+                Timestamp('1996-01-08', tz='UTC'),
+                Timestamp('1999-12-31', tz='UTC'),
+                Timestamp('2000-01-03', tz='UTC'),
+                Timestamp('2001-12-24', tz='UTC'),
+                Timestamp('2003-12-26', tz='UTC'),
+                Timestamp('2004-01-02', tz='UTC'),
+                Timestamp('2004-12-31', tz='UTC')]
 
 class XNYMExchangeCalendar(TradingCalendar):
     """
@@ -51,7 +70,7 @@ class XNYMExchangeCalendar(TradingCalendar):
     - Christmas
     """
     regular_early_close = time(12)
-    
+
     name = 'XNYM'
 
     tz = timezone('America/New_York')
@@ -82,27 +101,32 @@ class XNYMExchangeCalendar(TradingCalendar):
         # close at noon.
         return HolidayCalendar([
             USNewYearsDay,
+            USMartinLutherKingJrAfter1998,
+            USPresidentsDay,
             GoodFriday,
+            USMemorialDay,
+            USIndependenceDay,
+            USLaborDay,
+            USThanksgivingDay,
+            USBlackFriday1993to2006,
+            ChristmasEveBefore1993,
             Christmas,
         ])
 
     @property
     def adhoc_holidays(self):
-        return USNationalDaysofMourning
+        return list(chain(USNationalDaysofMourning,
+                          September11Closings,
+                          IndependenceDayClosings,
+                          RandomClosings,
+        ))
 
-    @property
-    def special_closes(self):
-        return [(
-            self.regular_early_close,
-            HolidayCalendar([
-                USMartinLutherKingJrAfter1998,
-                USPresidentsDay,
-                USMemorialDay,
-                USLaborDay,
-                USIndependenceDay,
-                USThanksgivingDay,
-                USBlackFridayInOrAfter1993,
-                ChristmasEveBefore1993,
-                ChristmasEveInOrAfter1993,
-            ])
-        )]
+#    @property
+#    def special_closes(self):
+#        return [(
+#            self.regular_early_close,
+#            HolidayCalendar([
+#                USBlackFridayInOrAfter1993,
+#                ChristmasEveInOrAfter1993,
+#            ])
+#        )]

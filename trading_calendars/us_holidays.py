@@ -132,6 +132,15 @@ USBlackFridayInOrAfter1993 = Holiday(
     start_date=Timestamp('1993-01-01'),
     offset=[DateOffset(weekday=TH(4)), Day(1)],
 )
+USBlackFriday1993to2006 = Holiday(
+    'Black Friday',
+    month=11,
+    day=1,
+    # Black Friday was not observed until 1992.
+    start_date=Timestamp('1992-01-01'),
+    end_date=Timestamp('2007-01-01'),
+    offset=[DateOffset(weekday=TH(4)), Day(1)],
+)
 BattleOfGettysburg = Holiday(
     # All of the floor traders in Chicago were sent to PA
     'Markets were closed during the battle of Gettysburg',

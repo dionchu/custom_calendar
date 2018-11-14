@@ -126,13 +126,7 @@ class XCMEExchangeCalendar(TradingCalendar):
                 Christmas,
                 USVeteransDay,
             ])
-        if self.product_group == 'ENERGY':
-            return HolidayCalendar([
-                USNewYearsDay,
-                GoodFriday,
-                USThanksgivingDay,
-                Christmas,
-            ])
+
 
 
     @property
@@ -147,11 +141,7 @@ class XCMEExchangeCalendar(TradingCalendar):
                               IRDSeptember11Closings,
                               November12Closing2007
             ))
-        if self.product_group == 'ENERGY':
-            return list(chain(USNationalDaysofMourning,
-                              IRDSeptember11Closings,
-                              November12Closing2007
-            ))
+
 
     @property
     def special_closes(self):
@@ -174,31 +164,18 @@ class XCMEExchangeCalendar(TradingCalendar):
             return [(
                 self.regular_early_close,
                 HolidayCalendar([
-                    USMartinLutherKingJrAfter1998,
-                    USPresidentsDay,
-                    USMemorialDay,
-                    USLaborDay,
-                    USIndependenceDay,
-                    USThanksgivingDay,
+#                    USMartinLutherKingJrAfter1995,
+#                    USPresidentsDay,
+#                    USMemorialDay,
+#                    USLaborDay,
+#                    USIndependenceDay,
+#                    USThanksgivingDay,
                     USBlackFridayInOrAfter1993,
                     ChristmasEveBefore1993,
                     ChristmasEveInOrAfter1993,
                 ])
             )]
-        if self.product_group == 'ENERGY':
-            return [(
-                self.regular_early_close,
-                HolidayCalendar([
-                    USMartinLutherKingJrAfter1998,
-                    USPresidentsDay,
-                    USMemorialDay,
-                    USLaborDay,
-                    USIndependenceDay,
-                    USBlackFridayInOrAfter1993,
-                    ChristmasEveBefore1993,
-                    ChristmasEveInOrAfter1993,
-                ])
-            )]
+
 
     @property
     def day(self):
