@@ -16,6 +16,7 @@
 from datetime import time
 from itertools import chain
 from pandas import date_range, Timestamp
+from pandas.tseries.offsets import CustomBusinessDay
 
 from pandas.tseries.holiday import (
     USPresidentsDay,
@@ -59,6 +60,8 @@ RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
                 Timestamp('2004-01-02', tz='UTC'),
                 Timestamp('2004-12-31', tz='UTC')]
 
+MetalsSeptember11Closings = date_range('2001-09-11','2001-09-14', tz='UTC')
+
 class XNYMExchangeCalendar(TradingCalendar):
     """
     Exchange calendar for the New York Mercantile Exchange (NYMEX).
@@ -69,6 +72,7 @@ class XNYMExchangeCalendar(TradingCalendar):
     - Good Friday
     - Christmas
     """
+    product_group = 'ENERGY' # UK, US, EU
     regular_early_close = time(12)
 
     name = 'XNYM'
@@ -99,27 +103,47 @@ class XNYMExchangeCalendar(TradingCalendar):
         # For now, we will treat the NYMEX as having a single calendar, and just
         # go with the most conservative hours - and treat July 4 as an early
         # close at noon.
-        return HolidayCalendar([
-            USNewYearsDay,
-            USMartinLutherKingJrAfter1998,
-            USPresidentsDay,
-            GoodFriday,
-            USMemorialDay,
-            USIndependenceDay,
-            USLaborDay,
-            USThanksgivingDay,
-            USBlackFriday1993to2006,
-            ChristmasEveBefore1993,
-            Christmas,
-        ])
+        if self.product_group == 'ENERGY':
+            return HolidayCalendar([
+                USNewYearsDay,
+                USMartinLutherKingJrAfter1998,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USIndependenceDay,
+                USLaborDay,
+                USThanksgivingDay,
+                USBlackFriday1993to2006,
+                ChristmasEveBefore1993,
+                Christmas,
+            ])
+        if self.product_group == 'METALS':
+            return HolidayCalendar([
+                USNewYearsDay,
+                USMartinLutherKingJrAfter1998,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USIndependenceDay,
+                USLaborDay,
+                USThanksgivingDay,
+                USBlackFriday1993to2006,
+                ChristmasEveBefore1993,
+                Christmas,
+            ])
 
     @property
     def adhoc_holidays(self):
-        return list(chain(USNationalDaysofMourning,
-                          September11Closings,
-                          IndependenceDayClosings,
-                          RandomClosings,
-        ))
+        if self.product_group == 'ENERGY':
+            return list(chain(USNationalDaysofMourning,
+                              September11Closings,
+                              IndependenceDayClosings,
+                              RandomClosings,
+            ))
+        if self.product_group == 'METALS':
+            return list(chain(USNationalDaysofMourning,
+                              MetalsSeptember11Closings,
+            ))
 
 #    @property
 #    def special_closes(self):
@@ -130,3 +154,11 @@ class XNYMExchangeCalendar(TradingCalendar):
 #                ChristmasEveInOrAfter1993,
 #            ])
 #        )]
+
+    @property
+    def day(self):
+        return CustomBusinessDay(
+            holidays=self.adhoc_holidays,
+            calendar=self.regular_holidays,
+            weekmask=self.weekmask,
+        )

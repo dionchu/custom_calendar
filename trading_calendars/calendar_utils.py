@@ -17,6 +17,7 @@ from .exchange_calendar_xnym import XNYMExchangeCalendar
 from .exchange_calendar_xnys import XNYSExchangeCalendar
 from .exchange_calendar_xpar import XPARExchangeCalendar
 from .exchange_calendar_xtse import XTSEExchangeCalendar
+from .exchange_calendar_xeur import XEURExchangeCalendar
 from .weekday_calendar import WeekdayCalendar
 
 _default_calendar_factories = {
@@ -34,6 +35,7 @@ _default_calendar_factories = {
     'XNYS': XNYSExchangeCalendar,
     'XPAR': XPARExchangeCalendar,
     'XTSE': XTSEExchangeCalendar,
+    'XEUR': XEURExchangeCalendar,
     # Miscellaneous calendars.
     '24/7': AlwaysOpenCalendar,
     '24/5': WeekdayCalendar,
