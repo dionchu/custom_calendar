@@ -51,6 +51,7 @@ IndependenceDayClosings = [Timestamp('1995-07-03', tz='UTC'),
                          Timestamp('2000-07-03', tz='UTC'),
                          Timestamp('2002-07-05', tz='UTC'),
                          Timestamp('2006-07-03', tz='UTC')]
+
 RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
                 Timestamp('1996-01-08', tz='UTC'),
                 Timestamp('1999-12-31', tz='UTC'),
@@ -61,6 +62,14 @@ RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
                 Timestamp('2004-12-31', tz='UTC')]
 
 MetalsSeptember11Closings = date_range('2001-09-11','2001-09-14', tz='UTC')
+MetalsRandomClosings = [Timestamp('1999-12-31', tz='UTC'),
+                        Timestamp('2000-01-03', tz='UTC'),
+                        Timestamp('2000-07-03', tz='UTC'),
+                        Timestamp('2001-12-24', tz='UTC'),
+                        Timestamp('2002-07-05', tz='UTC'),
+                        Timestamp('2003-12-26', tz='UTC'),
+                        Timestamp('2004-01-02', tz='UTC'),
+                        Timestamp('2004-12-31', tz='UTC')]
 
 class XNYMExchangeCalendar(TradingCalendar):
     """
@@ -143,6 +152,7 @@ class XNYMExchangeCalendar(TradingCalendar):
         if self.product_group == 'METALS':
             return list(chain(USNationalDaysofMourning,
                               MetalsSeptember11Closings,
+                              MetalsRandomClosings,
             ))
 
 #    @property
