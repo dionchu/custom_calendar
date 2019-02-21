@@ -37,7 +37,7 @@ from .us_holidays import (
     ChristmasEveInOrAfter1993,
     USBlackFridayInOrAfter1993,
     USBlackFriday1993to2006,
-    USNationalDaysofMourning,
+    NYMUSNationalDaysofMourning,
     USMartinLutherKingJrAfter1998,
     USMemorialDay,
     USIndependenceDay
@@ -144,13 +144,13 @@ class XNYMExchangeCalendar(TradingCalendar):
     @property
     def adhoc_holidays(self):
         if self.product_group == 'ENERGY':
-            return list(chain(USNationalDaysofMourning,
+            return list(chain(NYMUSNationalDaysofMourning,
                               September11Closings,
                               IndependenceDayClosings,
                               RandomClosings,
             ))
         if self.product_group == 'METALS':
-            return list(chain(USNationalDaysofMourning,
+            return list(chain(NYMUSNationalDaysofMourning,
                               MetalsSeptember11Closings,
                               MetalsRandomClosings,
             ))

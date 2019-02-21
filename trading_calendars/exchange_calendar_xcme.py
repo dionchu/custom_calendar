@@ -49,6 +49,12 @@ IRDSeptember11Closings = date_range('2001-09-12', '2001-09-13', tz='UTC')
 November12Closing2007 = [Timestamp('2007-11-12', tz='UTC'),
                          Timestamp('1992-04-14', tz='UTC'),
                          Timestamp('2001-11-12', tz='UTC')]
+FXClosings = [Timestamp('2001-11-12', tz='UTC'),
+                Timestamp('2004-07-29', tz='UTC'),
+                Timestamp('1999-10-11', tz='UTC'),
+                Timestamp('2003-11-11', tz='UTC'),
+                Timestamp('2004-05-14', tz='UTC')]
+
 
 class XCMEExchangeCalendar(TradingCalendar):
     """
@@ -126,7 +132,18 @@ class XCMEExchangeCalendar(TradingCalendar):
                 Christmas,
                 USVeteransDay,
             ])
-
+        if self.product_group == 'FX':
+            return HolidayCalendar([
+                USMartinLutherKingJrAfter1995,
+                USNewYearsDay,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USLaborDay,
+                USIndependenceDay,
+                USThanksgivingDay,
+                Christmas,
+            ])
 
 
     @property
@@ -141,7 +158,11 @@ class XCMEExchangeCalendar(TradingCalendar):
                               IRDSeptember11Closings,
                               November12Closing2007
             ))
-
+        if self.product_group == 'FX':
+            return list(chain(USNationalDaysofMourning,
+                              IRDSeptember11Closings,
+                              FXClosings
+            ))
 
     @property
     def special_closes(self):
@@ -175,7 +196,21 @@ class XCMEExchangeCalendar(TradingCalendar):
                     ChristmasEveInOrAfter1993,
                 ])
             )]
-
+        if self.product_group == 'FX':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+#                    USMartinLutherKingJrAfter1995,
+#                    USPresidentsDay,
+#                    USMemorialDay,
+#                    USLaborDay,
+#                    USIndependenceDay,
+#                    USThanksgivingDay,
+                    USBlackFridayInOrAfter1993,
+                    ChristmasEveBefore1993,
+                    ChristmasEveInOrAfter1993,
+                ])
+            )]
 
     @property
     def day(self):

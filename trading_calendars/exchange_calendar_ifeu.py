@@ -39,7 +39,7 @@ class IFEUExchangeCalendar(TradingCalendar):
     Close Time: 6pm, UK/London
     https://www.theice.com/publicdocs/futures/Trading_Schedule_Migrated_Liffe_Contracts.pdf # noqa
     """
-    product_group = 'UK' # UK, US, EU
+    product_group = 'UKBANK' # UK, US, EU
     regular_early_close = time(13)
 
     name = 'IFEU'
@@ -56,12 +56,15 @@ class IFEUExchangeCalendar(TradingCalendar):
 
     @property
     def adhoc_holidays(self):
-        if self.product_group == 'UK':
+        if self.product_group == 'UKBANK':
             return list(chain(
                 USNationalDaysofMourning,
                 # ICE was only closed on the first day of the Hurricane Sandy
                 # closings (was not closed on 2012-10-30)
-                [Timestamp('2012-10-29', tz='UTC')],
+                [Timestamp('2012-10-29', tz='UTC'),
+                Timestamp('1999-12-31', tz='UTC'),
+                Timestamp('2011-12-28', tz='UTC'),
+                Timestamp('2016-06-28', tz='UTC'),],
                 UKBANK_AbstractHolidayCalendar.regular_adhoc,
             ))
         elif self.product_group == 'US':
@@ -84,7 +87,7 @@ class IFEUExchangeCalendar(TradingCalendar):
     @property
     def regular_holidays(self):
         # https://www.theice.com/publicdocs/futures_us/exchange_notices/NewExNot2016Holidays.pdf # noqa
-        if self.product_group == 'UK':
+        if self.product_group == 'UKBANK':
             return UKBANK_AbstractHolidayCalendar.regular
         elif self.product_group == 'US':
             return USBOND_AbstractHolidayCalendar.regular

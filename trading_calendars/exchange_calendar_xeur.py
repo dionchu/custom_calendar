@@ -40,7 +40,9 @@ EUBANKClosings = [Timestamp('1999-05-13', tz='UTC'),
                          Timestamp('1999-05-24', tz='UTC'),
                          Timestamp('1999-06-03', tz='UTC'),
                          Timestamp('2007-05-28', tz='UTC'),
-                         Timestamp('2015-05-25', tz='UTC')]
+                         Timestamp('2015-05-25', tz='UTC'),
+                         Timestamp('2001-02-21', tz='UTC'),
+                         Timestamp('2001-04-19', tz='UTC')]
 
 class XEURExchangeCalendar(TradingCalendar):
     """
@@ -84,7 +86,7 @@ class XEURExchangeCalendar(TradingCalendar):
     @property
     def day(self):
         return CustomBusinessDay(
-            holidays=self.adhoc_holidays,        
+            holidays=self.adhoc_holidays,
             calendar=self.regular_holidays,
             weekmask=self.weekmask,
         )
