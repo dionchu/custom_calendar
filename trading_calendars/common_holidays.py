@@ -27,7 +27,17 @@ def new_years_day(start_date=None,
         days_of_week=days_of_week,
     )
 
-
+def holy_wednesday(start_date=None, end_date=None, days_of_week=None):
+    return Holiday(
+        'Holy Wednesday',
+        month=1,
+        day=1,
+        offset=[Easter(), -Day(4)],
+        start_date=start_date,
+        end_date=end_date,
+        days_of_week=days_of_week,
+    )
+    
 def anzac_day(start_date=None,
               end_date=None,
               observance=None,
@@ -100,7 +110,7 @@ def chinese_national_day(start_date=None, end_date=None, observance=None):
         end_date=end_date,
         observance=observance,
     )
-    
+
 # Ascension Day, Whit Monday, and Corpus Christi do not take observance as a
 # parameter because they depend on a particular offset, and offset and
 # observance cannot both be passed to a Holiday.
