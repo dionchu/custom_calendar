@@ -33,6 +33,10 @@ Christmas,
 BoxingDay,
 )
 
+from .holiday_calendar_xfra import (
+    XFRA_AbstractHolidayCalendar,
+)
+
 ChristmasEve = christmas_eve()
 NewYearsEve = new_years_eve()
 
@@ -68,6 +72,8 @@ class XEURExchangeCalendar(TradingCalendar):
     def adhoc_holidays(self):
         if self.product_group == 'EUBANK':
             return EUBANKClosings
+        elif self.product_group == 'XFRA':
+            return XFRA_AbstractHolidayCalendar.regular_adhoc
 
     @property
     def regular_holidays(self):
@@ -82,6 +88,8 @@ class XEURExchangeCalendar(TradingCalendar):
                     BoxingDay,
                     NewYearsEve,
                 ])
+        elif self.product_group == 'XFRA':
+            return XFRA_AbstractHolidayCalendar.regular
 
     @property
     def day(self):

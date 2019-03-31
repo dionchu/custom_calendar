@@ -61,6 +61,17 @@ RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
                 Timestamp('2004-01-02', tz='UTC'),
                 Timestamp('2004-12-31', tz='UTC')]
 
+RandomClosings12Month = [Timestamp('1993-12-31', tz='UTC'),
+                Timestamp('1996-01-08', tz='UTC'),
+                Timestamp('1999-12-31', tz='UTC'),
+                Timestamp('2000-01-03', tz='UTC'),
+                Timestamp('2001-12-24', tz='UTC'),
+                Timestamp('2002-07-03', tz='UTC'),
+                Timestamp('2003-12-26', tz='UTC'),
+                Timestamp('2004-01-02', tz='UTC'),
+                Timestamp('2004-12-31', tz='UTC'),
+                Timestamp('2014-04-08', tz='UTC')]
+
 MetalsSeptember11Closings = date_range('2001-09-11','2001-09-14', tz='UTC')
 MetalsRandomClosings = [Timestamp('1999-12-31', tz='UTC'),
                         Timestamp('2000-01-03', tz='UTC'),
@@ -70,6 +81,16 @@ MetalsRandomClosings = [Timestamp('1999-12-31', tz='UTC'),
                         Timestamp('2003-12-26', tz='UTC'),
                         Timestamp('2004-01-02', tz='UTC'),
                         Timestamp('2004-12-31', tz='UTC')]
+
+MetalsRandomClosings12Month = [Timestamp('1999-12-31', tz='UTC'),
+                        Timestamp('2000-01-03', tz='UTC'),
+                        Timestamp('2000-07-03', tz='UTC'),
+                        Timestamp('2001-12-24', tz='UTC'),
+                        Timestamp('2002-07-05', tz='UTC'),
+                        Timestamp('2003-12-26', tz='UTC'),
+                        Timestamp('2004-01-02', tz='UTC'),
+                        Timestamp('2004-12-31', tz='UTC'),
+                        Timestamp('2006-07-03', tz='UTC')]
 
 class XNYMExchangeCalendar(TradingCalendar):
     """
@@ -126,7 +147,38 @@ class XNYMExchangeCalendar(TradingCalendar):
                 ChristmasEveBefore1993,
                 Christmas,
             ])
+
+        if self.product_group == 'ENERGY12':
+            return HolidayCalendar([
+                USNewYearsDay,
+                USMartinLutherKingJrAfter1998,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USIndependenceDay,
+                USLaborDay,
+                USThanksgivingDay,
+                USBlackFriday1993to2006,
+                ChristmasEveBefore1993,
+                Christmas,
+            ])
+
         if self.product_group == 'METALS':
+            return HolidayCalendar([
+                USNewYearsDay,
+                USMartinLutherKingJrAfter1998,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USIndependenceDay,
+                USLaborDay,
+                USThanksgivingDay,
+                USBlackFriday1993to2006,
+                ChristmasEveBefore1993,
+                Christmas,
+            ])
+
+        if self.product_group == 'METALS12':
             return HolidayCalendar([
                 USNewYearsDay,
                 USMartinLutherKingJrAfter1998,
@@ -149,11 +201,23 @@ class XNYMExchangeCalendar(TradingCalendar):
                               IndependenceDayClosings,
                               RandomClosings,
             ))
+        if self.product_group == 'ENERGY12':
+            return list(chain(NYMUSNationalDaysofMourning,
+                              September11Closings,
+                              IndependenceDayClosings,
+                              RandomClosings12Month,
+            ))
         if self.product_group == 'METALS':
             return list(chain(NYMUSNationalDaysofMourning,
                               MetalsSeptember11Closings,
                               MetalsRandomClosings,
             ))
+        if self.product_group == 'METALS12':
+            return list(chain(NYMUSNationalDaysofMourning,
+                              MetalsSeptember11Closings,
+                              MetalsRandomClosings12Month,
+            ))
+
 
 #    @property
 #    def special_closes(self):
