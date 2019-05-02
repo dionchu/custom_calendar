@@ -57,6 +57,7 @@ USVeteransDay = Holiday(
     'Veterans Day',
     month=11,
     day=11,
+    observance=nearest_workday
 )
 USMartinLutherKingJrAfter1998 = Holiday(
     'Dr. Martin Luther King Jr. Day',

@@ -3,7 +3,7 @@
 # Check how Japan determines Vernal Equinox holiday
 
 from datetime import time
-from pandas.tseries.holiday import Holiday, Easter
+from pandas.tseries.holiday import DateOffset, Holiday, Easter, FR
 from pandas.tseries.offsets import Day
 from pytz import timezone
 
@@ -37,7 +37,7 @@ def holy_wednesday(start_date=None, end_date=None, days_of_week=None):
         end_date=end_date,
         days_of_week=days_of_week,
     )
-    
+
 def anzac_day(start_date=None,
               end_date=None,
               observance=None,
@@ -77,14 +77,15 @@ def wed_before_maundy_thursday(start_date=None, end_date=None):
         end_date=end_date,
     )
 
-def maundy_thursday(start_date=None, end_date=None):
+def maundy_thursday(start_date=None, end_date=None, days_of_week=None):
     return Holiday(
-        "Maundy Thursday",
+        'Maundy Thursday',
         month=1,
         day=1,
-        offset=[Easter(), Day(-3)],
+        offset=[Easter(), -Day(3)],
         start_date=start_date,
         end_date=end_date,
+        days_of_week=days_of_week,
     )
 
 def european_labour_day(start_date=None,
@@ -146,6 +147,15 @@ def corpus_christi(start_date=None, end_date=None):
         end_date=end_date,
     )
 
+def midsummer_eve(start_date=None, end_date=None):
+    return Holiday(
+        'Midsummer Eve',
+        month=6,
+        day=19,
+        offset=DateOffset(weekday=FR(1)),
+        start_date=start_date,
+        end_date=end_date,
+    )
 
 def assumption_day(start_date=None,
                    end_date=None,

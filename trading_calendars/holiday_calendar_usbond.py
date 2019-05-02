@@ -53,6 +53,7 @@ from .us_holidays import (
     USIndependenceDay,
     September11Closings,
     HurricaneSandyClosings,
+    USVeteransDay,
 )
 
 from .trading_calendar import (
@@ -243,6 +244,10 @@ ReaganMourning = [
     Timestamp('2004-06-11', tz='UTC'),
 ]
 
+BushMourning = [
+    Timestamp('2018-12-05', tz='UTC'),
+]
+
 # SIFMA US Bond Market Holiday Calendar
 # -------------------------------------
 
@@ -257,6 +262,7 @@ class USBOND_AbstractHolidayCalendar:
           USIndependenceDay,
           USLaborDay,
           USColumbusDay,
+          USVeteransDay,
           USThanksgivingDay,
           Christmas,
         ])
@@ -264,6 +270,7 @@ class USBOND_AbstractHolidayCalendar:
         regular_adhoc = list(chain(
             SIFMAHurricaneSandyClose,
             ReaganMourning,
+            BushMourning,
         ))
 
         early = HolidayCalendar([

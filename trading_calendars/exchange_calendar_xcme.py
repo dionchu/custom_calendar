@@ -53,8 +53,29 @@ FXClosings = [Timestamp('2001-11-12', tz='UTC'),
                 Timestamp('2004-07-29', tz='UTC'),
                 Timestamp('1999-10-11', tz='UTC'),
                 Timestamp('2003-11-11', tz='UTC'),
-                Timestamp('2004-05-14', tz='UTC')]
+                Timestamp('2004-05-14', tz='UTC'),
+                Timestamp('2004-07-13', tz='UTC'),#EC2
+                Timestamp('2004-07-15', tz='UTC'),#EC2
+                Timestamp('2004-07-21', tz='UTC'),#EC2, NE1
+                ]
 
+GrainsClosings = [Timestamp('1999-12-31', tz='UTC'),
+                  Timestamp('2002-12-24', tz='UTC'),
+                  Timestamp('2004-12-31', tz='UTC'),]
+Grains12Closings = [Timestamp('1999-12-31', tz='UTC'),
+#                  Timestamp('2000-12-14', tz='UTC'), #ZW
+#                  Timestamp('2001-03-14', tz='UTC'), #ZW
+#                  Timestamp('2001-03-15', tz='UTC'), #ZW
+#                  Timestamp('2001-07-13', tz='UTC'), #ZW
+#                  Timestamp('2001-12-14', tz='UTC'), #ZW
+#                  Timestamp('2001-12-17', tz='UTC'), #ZW
+                  Timestamp('2000-11-14', tz='UTC'), #ZS
+                  Timestamp('2001-12-24', tz='UTC'), #ZS
+                  Timestamp('2004-07-28', tz='UTC'), #ZS
+                  Timestamp('2004-08-16', tz='UTC'), #ZS
+                  Timestamp('2002-12-24', tz='UTC'),
+                  Timestamp('2004-07-20', tz='UTC'), #ZS
+                  Timestamp('2004-12-31', tz='UTC'),]
 
 class XCMEExchangeCalendar(TradingCalendar):
     """
@@ -118,7 +139,7 @@ class XCMEExchangeCalendar(TradingCalendar):
                 Christmas,
                 USVeteransDay,
             ])
-        if self.product_group == 'EQD':
+        elif self.product_group == 'EQD':
             return HolidayCalendar([
                 USMartinLutherKingJrAfter1995,
                 USNewYearsDay,
@@ -132,7 +153,32 @@ class XCMEExchangeCalendar(TradingCalendar):
                 Christmas,
                 USVeteransDay,
             ])
-        if self.product_group == 'FX':
+        elif self.product_group == 'FX':
+            return HolidayCalendar([
+                USMartinLutherKingJrAfter1995,
+                USNewYearsDay,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USColumbusDay,
+                USLaborDay,
+                USIndependenceDay,
+                USThanksgivingDay,
+                Christmas,
+            ])
+        elif self.product_group == 'GRAINS':
+            return HolidayCalendar([
+                USMartinLutherKingJrAfter1995,
+                USNewYearsDay,
+                USPresidentsDay,
+                GoodFriday,
+                USMemorialDay,
+                USLaborDay,
+                USIndependenceDay,
+                USThanksgivingDay,
+                Christmas,
+            ])
+        elif self.product_group == 'GRAINS12':
             return HolidayCalendar([
                 USMartinLutherKingJrAfter1995,
                 USNewYearsDay,
@@ -153,15 +199,25 @@ class XCMEExchangeCalendar(TradingCalendar):
                               EQDSeptember11Closings,
                               November12Closing2007
             ))
-        if self.product_group == 'IRD':
+        elif self.product_group == 'IRD':
             return list(chain(USNationalDaysofMourning,
                               IRDSeptember11Closings,
                               November12Closing2007
             ))
-        if self.product_group == 'FX':
+        elif self.product_group == 'FX':
             return list(chain(USNationalDaysofMourning,
                               IRDSeptember11Closings,
-                              FXClosings
+#                              FXClosings
+            ))
+        elif self.product_group == 'GRAINS':
+            return list(chain(USNationalDaysofMourning,
+                              IRDSeptember11Closings,
+                              GrainsClosings
+            ))
+        elif self.product_group == 'GRAINS12':
+            return list(chain(USNationalDaysofMourning,
+                              IRDSeptember11Closings,
+                              Grains12Closings
             ))
 
     @property
@@ -181,7 +237,7 @@ class XCMEExchangeCalendar(TradingCalendar):
                     ChristmasEveInOrAfter1993,
                 ])
             )]
-        if self.product_group == 'EQD':
+        elif self.product_group == 'EQD':
             return [(
                 self.regular_early_close,
                 HolidayCalendar([
@@ -196,7 +252,7 @@ class XCMEExchangeCalendar(TradingCalendar):
                     ChristmasEveInOrAfter1993,
                 ])
             )]
-        if self.product_group == 'FX':
+        elif self.product_group == 'FX':
             return [(
                 self.regular_early_close,
                 HolidayCalendar([
@@ -211,7 +267,32 @@ class XCMEExchangeCalendar(TradingCalendar):
                     ChristmasEveInOrAfter1993,
                 ])
             )]
-
+        elif self.product_group == 'GRAINS':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+#                    USMartinLutherKingJrAfter1995,
+#                    USPresidentsDay,
+#                    USMemorialDay,
+#                    USLaborDay,
+#                    USIndependenceDay,
+#                    USThanksgivingDay,
+                    USBlackFridayInOrAfter1993,
+                ])
+            )]
+        elif self.product_group == 'GRAINS12':
+            return [(
+                self.regular_early_close,
+                HolidayCalendar([
+#                    USMartinLutherKingJrAfter1995,
+#                    USPresidentsDay,
+#                    USMemorialDay,
+#                    USLaborDay,
+#                    USIndependenceDay,
+#                    USThanksgivingDay,
+                    USBlackFridayInOrAfter1993,
+                ])
+            )]
     @property
     def day(self):
         return CustomBusinessDay(

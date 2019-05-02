@@ -4,6 +4,7 @@ from .errors import (
     CyclicCalendarAlias,
     InvalidCalendarName,
 )
+from .all_days import AllDaysCalendar
 from .exchange_calendar_bmex import BMEXExchangeCalendar
 from .exchange_calendar_ifeu import IFEUExchangeCalendar
 from .exchange_calendar_ifus import IFUSExchangeCalendar
@@ -19,6 +20,8 @@ from .exchange_calendar_xpar import XPARExchangeCalendar
 from .exchange_calendar_xtse import XTSEExchangeCalendar
 from .exchange_calendar_xeur import XEURExchangeCalendar
 from .exchange_calendar_xosl import XOSLExchangeCalendar
+from .exchange_calendar_xsto import XSTOExchangeCalendar
+from .exchange_calendar_usbond import USBONDExchangeCalendar
 from .weekday_calendar import WeekdayCalendar
 
 _default_calendar_factories = {
@@ -38,6 +41,9 @@ _default_calendar_factories = {
     'XTSE': XTSEExchangeCalendar,
     'XEUR': XEURExchangeCalendar,
     'XOSL': XOSLExchangeCalendar,
+    'XSTO': XSTOExchangeCalendar,
+    'USBOND': USBONDExchangeCalendar,
+    'ALL': AllDaysCalendar,
     # Miscellaneous calendars.
     '24/7': AlwaysOpenCalendar,
     '24/5': WeekdayCalendar,
