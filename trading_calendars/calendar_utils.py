@@ -37,6 +37,8 @@ _default_calendar_factories = {
     'XMOD': XMODExchangeCalendar,
     'XNYM': XNYMExchangeCalendar,
     'XNYS': XNYSExchangeCalendar,
+    'XNCM': XNYSExchangeCalendar,
+    'BATS': XNYSExchangeCalendar,
     'XPAR': XPARExchangeCalendar,
     'XTSE': XTSEExchangeCalendar,
     'XEUR': XEURExchangeCalendar,
