@@ -63,10 +63,12 @@ RandomClosings = [Timestamp('1993-12-31', tz='UTC'),
 
 RandomClosings12Month = [Timestamp('1993-12-31', tz='UTC'),
                 Timestamp('1996-01-08', tz='UTC'),
+                Timestamp('1999-06-29', tz='UTC'),
                 Timestamp('1999-12-31', tz='UTC'),
                 Timestamp('2000-01-03', tz='UTC'),
                 Timestamp('2001-12-24', tz='UTC'),
                 Timestamp('2002-07-03', tz='UTC'),
+                Timestamp('2003-07-28', tz='UTC'),
                 Timestamp('2003-12-26', tz='UTC'),
                 Timestamp('2004-01-02', tz='UTC'),
                 Timestamp('2004-12-31', tz='UTC'),
@@ -147,7 +149,6 @@ class XNYMExchangeCalendar(TradingCalendar):
                 ChristmasEveBefore1993,
                 Christmas,
             ])
-
         if self.product_group == 'ENERGY12':
             return HolidayCalendar([
                 USNewYearsDay,
@@ -162,7 +163,6 @@ class XNYMExchangeCalendar(TradingCalendar):
                 ChristmasEveBefore1993,
                 Christmas,
             ])
-
         if self.product_group == 'METALS':
             return HolidayCalendar([
                 USNewYearsDay,
@@ -177,7 +177,6 @@ class XNYMExchangeCalendar(TradingCalendar):
                 ChristmasEveBefore1993,
                 Christmas,
             ])
-
         if self.product_group == 'METALS12':
             return HolidayCalendar([
                 USNewYearsDay,
@@ -217,7 +216,6 @@ class XNYMExchangeCalendar(TradingCalendar):
                               MetalsSeptember11Closings,
                               MetalsRandomClosings12Month,
             ))
-
 
 #    @property
 #    def special_closes(self):
